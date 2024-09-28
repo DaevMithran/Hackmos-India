@@ -43,18 +43,18 @@ message MsgUpdateParamsResponse {}
 
 message MsgCreateEventParams {
     option (cosmos.msg.v1.signer) = "organizer";
-  
+
     // authority is the address of the governance account.
     string organizer = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-  
+
     // params defines the parameters to update.
     //
     // NOTE: All parameters must be supplied.
-   string name = 2;
-  }
+    string name = 2;
+}
   
-  // MsgUpdateParamsResponse defines the response structure for executing a
-  // MsgUpdateParams message.
-  //
-  // Since: cosmos-sdk 0.47
-  message MsgCreateEventResponse {}
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+//
+// Since: cosmos-sdk 0.47
+message MsgCreateEventResponse {}

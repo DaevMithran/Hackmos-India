@@ -6,6 +6,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	"cosmossdk.io/errors"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
 )
 
@@ -26,4 +27,14 @@ func (ms msgServer) UpdateParams(ctx context.Context, msg *types.MsgUpdateParams
 	}
 
 	return nil, ms.k.Params.Set(ctx, msg.Params)
+}
+
+// MsgCreateEvent implements types.MsgServer.
+func (ms msgServer) MsgCreateEvent(ctx context.Context, msg *types.MsgCreateEventParams) (*types.MsgCreateEventResponse, error) {
+	// ctx := sdk.UnwrapSDKContext(goCtx)
+	err := ms.k.CreateEvent(ctx, sdk.AccAddress(msg.Organizer), msg.Name)
+	if err != nil {
+		return nil, err
+	}
+	return &types.MsgCreateEventResponse{}, nil
 }

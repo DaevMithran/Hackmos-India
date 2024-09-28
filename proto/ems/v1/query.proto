@@ -14,7 +14,7 @@ service Query {
   }
 
   rpc GetEvent(QueryGetEventRequest) returns (QueryGetEventResponse) {
-    option (google.api.http).get = "ems/v1/name/{organizer}";
+    option (google.api.http).get = "/ems/v1/name/{organizer}";
   }
 }
 

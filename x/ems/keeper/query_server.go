@@ -28,3 +28,16 @@ func (k Querier) Params(c context.Context, req *types.QueryParamsRequest) (*type
 
 	return &types.QueryParamsResponse{Params: &p}, nil
 }
+
+// GetEvent implements types.QueryServer.
+func (k Querier) GetEvent(goCtx context.Context, req *types.QueryGetEventRequest) (*types.QueryGetEventResponse, error) {
+	event,  err := k.Keeper.GetEvent(goCtx, sdk.AccAddress(req.Organizer))
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.QueryGetEventResponse{
+		Name: event,
+	}, nil
+
+}

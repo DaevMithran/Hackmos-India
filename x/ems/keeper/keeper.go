@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 
@@ -13,6 +14,7 @@ import (
 	"cosmossdk.io/log"
 	"cosmossdk.io/orm/model/ormdb"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	apiv1 "github.com/rollchains/dmhackmoschain/api/ems/v1"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
 )
@@ -28,6 +30,8 @@ type Keeper struct {
 	OrmDB  apiv1.StateStore
 
 	authority string
+
+	EventMapping collections.Map[sdk.AccAddress, string]
 }
 
 // NewKeeper creates a new Keeper instance
@@ -63,6 +67,8 @@ func NewKeeper(
 		OrmDB:  store,
 
 		authority: authority,
+
+		EventMapping: collections.NewMap(sb, collections.NewPrefix(1), "event_mapping", sdk.AccAddressKey, collections.StringValue),
 	}
 
 	schema, err := sb.Build()
@@ -101,4 +107,37 @@ func (k *Keeper) ExportGenesis(ctx context.Context) *types.GenesisState {
 	return &types.GenesisState{
 		Params: params,
 	}
+}
+
+func (k Keeper) CreateEvent(ctx context.Context, addr sdk.AccAddress, account string) error {
+    has, err := k.EventMapping.Has(ctx, addr)
+    if err != nil {
+        return err
+    }
+    if has {
+        return fmt.Errorf("account already exists: %s", addr)
+    }
+    
+    err = k.EventMapping.Set(ctx, addr, account)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+
+func (k Keeper) GetEvent(ctx context.Context, addr sdk.AccAddress) (string, error) {
+    acc, err := k.EventMapping.Get(ctx, addr)
+    if err != nil {
+        return acc, err
+    }
+    
+    return acc, nil
+}
+
+func (k Keeper) RemoveEvent(ctx context.Context, addr sdk.AccAddress) error {
+    err := k.EventMapping.Remove(ctx, addr)
+    if err != nil {
+        return err
+    }
+    return nil
 }
