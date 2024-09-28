@@ -1,0 +1,39 @@
+syntax = "proto3";
+package ems.v1;
+
+import "google/api/annotations.proto";
+import "ems/v1/genesis.proto";
+
+option go_package = "github.com/rollchains/dmhackmoschain/x/ems/types";
+
+// Query provides defines the gRPC querier service.
+service Query {
+  // Params queries all parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/ems/v1/params";
+  }
+
+  rpc GetEvent(QueryGetEventRequest) returns (QueryGetEventResponse) {
+    option (google.api.http).get = "ems/v1/name/{organizer}";
+  }
+}
+
+// QueryParamsRequest is the request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is the response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params defines the parameters of the module.
+  Params params = 1;
+}
+
+// QueryParamsRequest is the request type for the Query/Params RPC method.
+message QueryGetEventRequest {
+    string organizer = 1; 
+}
+
+// QueryParamsResponse is the response type for the Query/Params RPC method.
+message QueryGetEventResponse {
+  // params defines the parameters of the module.
+    string name =1;
+}
