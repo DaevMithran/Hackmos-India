@@ -45,6 +45,7 @@ func NewKeeper(
 	storeService storetypes.KVStoreService,
 	logger log.Logger,
 	authority string,
+	nftKeeper nftKeeper.Keeper,
 ) Keeper {
 	logger = logger.With(log.ModuleKey, "x/"+types.ModuleName)
 
@@ -74,6 +75,8 @@ func NewKeeper(
 		authority: authority,
 
 		EventMapping: collections.NewMap(sb, collections.NewPrefix(1), "event_mapping", collections.StringKey, codec.CollValue[types.Event](cdc)),
+
+		Nftkeeper: nftKeeper,
 	}
 
 	schema, err := sb.Build()

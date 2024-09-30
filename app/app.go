@@ -609,6 +609,7 @@ func NewChainApp(
 		runtime.NewKVStoreService(keys[emstypes.StoreKey]),
 		logger,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		app.NFTKeeper,
 	)
 
 	// Create the tokenfactory keeper

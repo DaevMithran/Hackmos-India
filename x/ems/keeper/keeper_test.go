@@ -81,7 +81,7 @@ func SetupTest(t *testing.T) *testFixture {
 	registerBaseSDKModules(f, encCfg, storeService, logger, require)
 
 	// Setup Keeper.
-	f.k = keeper.NewKeeper(encCfg.Codec, storeService, logger, f.govModAddr)
+	f.k = keeper.NewKeeper(encCfg.Codec, storeService, logger, f.govModAddr, f.nftkeeper)
 	f.msgServer = keeper.NewMsgServerImpl(f.k)
 	f.queryServer = keeper.NewQuerier(f.k)
 	f.appModule = module.NewAppModule(encCfg.Codec, f.k, f.nftkeeper)

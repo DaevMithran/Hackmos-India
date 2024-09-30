@@ -64,7 +64,5 @@ func (ms msgServer) MsgIssueEventNFT(ctx context.Context, msg *types.MsgIssueEve
 		return nil, err
 	}
 
-	return &types.MsgIssueEventNFTResponse{
-		
-	}, nil
+	return &types.MsgIssueEventNFTResponse{}, nil
 }
