@@ -8,6 +8,7 @@ import (
 
 	"cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
 )
 
@@ -59,7 +60,18 @@ func (ms msgServer) MsgIssueEventNFT(ctx context.Context, msg *types.MsgIssueEve
 		return nil, fmt.Errorf("permission denied")
 	}
 
-    err = ms.k.MintEventNFT(ctx, sdk.AccAddress(msg.Organizer), sdk.AccAddress(msg.Receiver), msg.Id)
+
+	organizer, err := ms.k.addressCodec.StringToBytes(msg.Organizer)
+	if err != nil {
+		return nil, sdkerrors.ErrInvalidAddress.Wrapf("invalid from address: %s", err)
+	}
+
+	receiver, err := ms.k.addressCodec.StringToBytes(msg.Receiver)
+	if err != nil {
+		return nil, sdkerrors.ErrInvalidAddress.Wrapf("invalid to address: %s", err)
+	}
+
+    err = ms.k.MintEventNFT(ctx, organizer, receiver, msg.Id)
 	if err != nil {
 		return nil, err
 	}

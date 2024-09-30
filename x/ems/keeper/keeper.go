@@ -10,6 +10,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	"cosmossdk.io/collections"
+	"cosmossdk.io/core/address"
 	storetypes "cosmossdk.io/core/store"
 	"cosmossdk.io/log"
 	"cosmossdk.io/orm/model/ormdb"
@@ -24,6 +25,7 @@ import (
 
 type Keeper struct {
 	cdc codec.BinaryCodec
+	addressCodec address.Codec
 
 	logger log.Logger
 
@@ -42,6 +44,7 @@ type Keeper struct {
 // NewKeeper creates a new Keeper instance
 func NewKeeper(
 	cdc codec.BinaryCodec,
+	addressCodec address.Codec,
 	storeService storetypes.KVStoreService,
 	logger log.Logger,
 	authority string,
@@ -67,6 +70,7 @@ func NewKeeper(
 
 	k := Keeper{
 		cdc:    cdc,
+		addressCodec: addressCodec,
 		logger: logger,
 
 		Params: collections.NewItem(sb, types.ParamsKey, "params", codec.CollValue[types.Params](cdc)),
@@ -154,7 +158,7 @@ func (k Keeper) RemoveEvent(ctx context.Context, id string) error {
 }
 
 func (k Keeper) MintEventNFT(ctx context.Context, senderAddr sdk.AccAddress, receiverAddr sdk.AccAddress, id string) error {
-	nftId := string(receiverAddr) + id
+	nftId := receiverAddr.String() + "-" + id
 
 	event, err := k.GetEvent(ctx, id) 
 	if err != nil {

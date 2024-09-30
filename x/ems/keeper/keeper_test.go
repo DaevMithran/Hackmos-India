@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
+	"cosmossdk.io/core/store"
 	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 
@@ -24,8 +25,6 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
-	"cosmossdk.io/core/store"
 
 	module "github.com/rollchains/dmhackmoschain/x/ems"
 	"github.com/rollchains/dmhackmoschain/x/ems/keeper"
@@ -81,7 +80,7 @@ func SetupTest(t *testing.T) *testFixture {
 	registerBaseSDKModules(f, encCfg, storeService, logger, require)
 
 	// Setup Keeper.
-	f.k = keeper.NewKeeper(encCfg.Codec, storeService, logger, f.govModAddr, f.nftkeeper)
+	f.k = keeper.NewKeeper(encCfg.Codec, authcodec.NewBech32Codec("dmhackmos"), storeService, logger, f.govModAddr, f.nftkeeper)
 	f.msgServer = keeper.NewMsgServerImpl(f.k)
 	f.queryServer = keeper.NewQuerier(f.k)
 	f.appModule = module.NewAppModule(encCfg.Codec, f.k, f.nftkeeper)

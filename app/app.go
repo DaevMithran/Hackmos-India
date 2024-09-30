@@ -606,6 +606,7 @@ func NewChainApp(
 	// Create the ems Keeper
 	app.EmsKeeper = emskeeper.NewKeeper(
 		appCodec,
+		authcodec.NewBech32Codec(sdk.GetConfig().GetBech32AccountAddrPrefix()),
 		runtime.NewKVStoreService(keys[emstypes.StoreKey]),
 		logger,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
