@@ -15,7 +15,7 @@ import (
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
-
+	nftkeeper "cosmossdk.io/x/nft/keeper"
 	modulev1 "github.com/rollchains/dmhackmoschain/api/ems/module/v1"
 	"github.com/rollchains/dmhackmoschain/x/ems/keeper"
 )
@@ -44,6 +44,8 @@ type ModuleInputs struct {
 
 	StakingKeeper  stakingkeeper.Keeper
 	SlashingKeeper slashingkeeper.Keeper
+
+	NFTKeeper nftkeeper.Keeper
 }
 
 type ModuleOutputs struct {
@@ -57,7 +59,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 	govAddr := authtypes.NewModuleAddress(govtypes.ModuleName).String()
 
 	k := keeper.NewKeeper(in.Cdc, in.StoreService, log.NewLogger(os.Stderr), govAddr)
-	m := NewAppModule(in.Cdc, k)
+	m := NewAppModule(in.Cdc, k, in.NFTKeeper)
 
 	return ModuleOutputs{Module: m, Keeper: k, Out: depinject.Out{}}
 }

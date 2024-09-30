@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName   = "/ems.v1.Msg/UpdateParams"
-	Msg_MsgCreateEvent_FullMethodName = "/ems.v1.Msg/MsgCreateEvent"
+	Msg_UpdateParams_FullMethodName     = "/ems.v1.Msg/UpdateParams"
+	Msg_MsgCreateEvent_FullMethodName   = "/ems.v1.Msg/MsgCreateEvent"
+	Msg_MsgIssueEventNFT_FullMethodName = "/ems.v1.Msg/MsgIssueEventNFT"
 )
 
 // MsgClient is the client API for Msg service.
@@ -32,6 +33,7 @@ type MsgClient interface {
 	// Since: cosmos-sdk 0.47
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(ctx context.Context, in *MsgCreateEventParams, opts ...grpc.CallOption) (*MsgCreateEventResponse, error)
+	MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTParams, opts ...grpc.CallOption) (*MsgIssueEventNFTResponse, error)
 }
 
 type msgClient struct {
@@ -60,6 +62,15 @@ func (c *msgClient) MsgCreateEvent(ctx context.Context, in *MsgCreateEventParams
 	return out, nil
 }
 
+func (c *msgClient) MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTParams, opts ...grpc.CallOption) (*MsgIssueEventNFTResponse, error) {
+	out := new(MsgIssueEventNFTResponse)
+	err := c.cc.Invoke(ctx, Msg_MsgIssueEventNFT_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -69,6 +80,7 @@ type MsgServer interface {
 	// Since: cosmos-sdk 0.47
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(context.Context, *MsgCreateEventParams) (*MsgCreateEventResponse, error)
+	MsgIssueEventNFT(context.Context, *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -81,6 +93,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) MsgCreateEvent(context.Context, *MsgCreateEventParams) (*MsgCreateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MsgCreateEvent not implemented")
+}
+func (UnimplementedMsgServer) MsgIssueEventNFT(context.Context, *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgIssueEventNFT not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -131,6 +146,24 @@ func _Msg_MsgCreateEvent_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_MsgIssueEventNFT_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgIssueEventNFTParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MsgIssueEventNFT(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MsgIssueEventNFT_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MsgIssueEventNFT(ctx, req.(*MsgIssueEventNFTParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -145,6 +178,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MsgCreateEvent",
 			Handler:    _Msg_MsgCreateEvent_Handler,
+		},
+		{
+			MethodName: "MsgIssueEventNFT",
+			Handler:    _Msg_MsgIssueEventNFT_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

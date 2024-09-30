@@ -17,6 +17,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	apiv1 "github.com/rollchains/dmhackmoschain/api/ems/v1"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
+
+	nft "cosmossdk.io/x/nft"
+	nftKeeper "cosmossdk.io/x/nft/keeper"
 )
 
 type Keeper struct {
@@ -31,7 +34,9 @@ type Keeper struct {
 
 	authority string
 
-	EventMapping collections.Map[sdk.AccAddress, string]
+	EventMapping collections.Map[string, types.Event]
+
+	Nftkeeper nftKeeper.Keeper
 }
 
 // NewKeeper creates a new Keeper instance
@@ -68,7 +73,7 @@ func NewKeeper(
 
 		authority: authority,
 
-		EventMapping: collections.NewMap(sb, collections.NewPrefix(1), "event_mapping", sdk.AccAddressKey, collections.StringValue),
+		EventMapping: collections.NewMap(sb, collections.NewPrefix(1), "event_mapping", collections.StringKey, codec.CollValue[types.Event](cdc)),
 	}
 
 	schema, err := sb.Build()
@@ -109,35 +114,60 @@ func (k *Keeper) ExportGenesis(ctx context.Context) *types.GenesisState {
 	}
 }
 
-func (k Keeper) CreateEvent(ctx context.Context, addr sdk.AccAddress, account string) error {
-    has, err := k.EventMapping.Has(ctx, addr)
+func (k Keeper) CreateEvent(ctx context.Context, id string, name string, account sdk.AccAddress) error {
+    has, err := k.EventMapping.Has(ctx, id)
     if err != nil {
         return err
     }
     if has {
-        return fmt.Errorf("account already exists: %s", addr)
+        return fmt.Errorf("event already exists: %s", id)
     }
     
-    err = k.EventMapping.Set(ctx, addr, account)
+    err = k.EventMapping.Set(ctx, id, types.Event {
+		Name: name,
+		Organizers: []string { string(account) },
+	})
     if err != nil {
         return err
     }
     return nil
 }
 
-func (k Keeper) GetEvent(ctx context.Context, addr sdk.AccAddress) (string, error) {
-    acc, err := k.EventMapping.Get(ctx, addr)
+func (k Keeper) GetEvent(ctx context.Context, id string) (*types.Event, error) {
+    event, err := k.EventMapping.Get(ctx, id)
     if err != nil {
-        return acc, err
+        return nil, err
     }
     
-    return acc, nil
+    return &event, nil
 }
 
-func (k Keeper) RemoveEvent(ctx context.Context, addr sdk.AccAddress) error {
-    err := k.EventMapping.Remove(ctx, addr)
+func (k Keeper) RemoveEvent(ctx context.Context, id string) error {
+    err := k.EventMapping.Remove(ctx, id)
     if err != nil {
         return err
     }
     return nil
+}
+
+func (k Keeper) MintEventNFT(ctx context.Context, senderAddr sdk.AccAddress, receiverAddr sdk.AccAddress, id string) error {
+	nftId := string(receiverAddr) + id
+
+	event, err := k.GetEvent(ctx, id) 
+	if err != nil {
+		return err
+	}
+
+	if !k.Nftkeeper.HasClass(ctx, id) {
+		k.Nftkeeper.SaveClass(ctx, nft.Class{ Id: id, Name: event.Name })
+	}
+
+	if k.Nftkeeper.HasNFT(ctx, id, nftId) {
+		return nil
+	}
+
+	return k.Nftkeeper.Mint(ctx, nft.NFT {
+		ClassId: id,
+		Id: nftId,
+	}, receiverAddr)
 }

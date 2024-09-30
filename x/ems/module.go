@@ -20,6 +20,8 @@ import (
 
 	"github.com/rollchains/dmhackmoschain/x/ems/keeper"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
+
+	nftkeeper "cosmossdk.io/x/nft/keeper"
 	// this line is used by starport scaffolding # 1
 )
 
@@ -47,16 +49,20 @@ type AppModule struct {
 	AppModuleBasic
 
 	keeper keeper.Keeper
+
+	nftKeeper nftkeeper.Keeper
 }
 
 // NewAppModule constructor
 func NewAppModule(
 	cdc codec.Codec,
 	keeper keeper.Keeper,
+	nftKeeper nftkeeper.Keeper,
 ) *AppModule {
 	return &AppModule{
 		AppModuleBasic: AppModuleBasic{cdc: cdc},
 		keeper:         keeper,
+		nftKeeper: nftKeeper,
 	}
 }
 

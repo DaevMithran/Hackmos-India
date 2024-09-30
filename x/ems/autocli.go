@@ -18,10 +18,10 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
                 {
                     RpcMethod: "GetEvent",
-                    Use:       "get [organizer]",
-                    Short:     "Get event by organizer",
+                    Use:       "event [id]",
+                    Short:     "Get event by id",
                     PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-                        {ProtoField: "organizer"},
+                        {ProtoField: "id"},
                     },
                 },
 			},
@@ -31,10 +31,20 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
                     RpcMethod: "MsgCreateEvent",
-                    Use:       "create [name]",
+                    Use:       "create [id] [name]",
                     Short:     "Create an event",
                     PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-                        {ProtoField: "name"},
+                        {ProtoField: "id"},
+						{ProtoField: "name"},
+                    },
+                },
+				{
+                    RpcMethod: "MsgIssueEventNFT",
+                    Use:       "issue [id] [receiver]",
+                    Short:     "Create an event",
+                    PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+                        {ProtoField: "id"},
+						{ProtoField: "receiver"},
                     },
                 },
 				{

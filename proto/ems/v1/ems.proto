@@ -1,0 +1,13 @@
+syntax = "proto3";
+package ems.v1;
+
+import "gogoproto/gogo.proto";
+import "amino/amino.proto";
+
+option go_package = "github.com/rollchains/dmhackmoschain/x/ems/types";
+
+message Event {
+    string name = 2;
+
+    repeated string organizers = 3;
+}

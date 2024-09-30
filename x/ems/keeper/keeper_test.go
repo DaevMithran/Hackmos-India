@@ -9,6 +9,7 @@ import (
 	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 
+	nftkeeper "cosmossdk.io/x/nft/keeper"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/testutil"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
@@ -52,6 +53,7 @@ type testFixture struct {
 	bankkeeper    bankkeeper.BaseKeeper
 	stakingKeeper *stakingkeeper.Keeper
 	mintkeeper    mintkeeper.Keeper
+	nftkeeper	  nftkeeper.Keeper
 
 	addrs      []sdk.AccAddress
 	govModAddr string
@@ -82,7 +84,7 @@ func SetupTest(t *testing.T) *testFixture {
 	f.k = keeper.NewKeeper(encCfg.Codec, storeService, logger, f.govModAddr)
 	f.msgServer = keeper.NewMsgServerImpl(f.k)
 	f.queryServer = keeper.NewQuerier(f.k)
-	f.appModule = module.NewAppModule(encCfg.Codec, f.k)
+	f.appModule = module.NewAppModule(encCfg.Codec, f.k, f.nftkeeper)
 
 	return f
 }

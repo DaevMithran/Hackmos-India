@@ -1,3 +1,58 @@
 # Built with https://github.com/rollchains/spawn
 configs/logs.json
 dist/
+build/
+
+# OS
+.DS_Store
+*.swp
+*.swo
+*.swl
+*.swm
+*.swn
+*.pyc
+
+# private files
+private[.-]*
+private
+
+# Build
+vendor
+/build
+dist
+tools-stamp
+buf-stamp
+artifacts
+simapp/simd/simd
+
+# Go
+go.work
+go.work.sum
+
+# Testing
+coverage.out
+coverage.txt
+*profile.out
+sim_log_file
+x/genutil/config
+x/genutil/data
+*.fail
+
+# Vagrant
+.vagrant/
+*.box
+*.log
+vagrant
+
+# IDE
+.idea
+*.iml
+*.ipr
+*.iws
+.dir-locals.el
+.vscode
+
+# Depinject & Graphviz
+dependency-graph.png
+debug_container.dot
+debug_container.log

@@ -805,14 +805,14 @@ func (x *fastReflection_QueryParamsResponse) ProtoMethods() *protoiface.Methods 
 }
 
 var (
-	md_QueryGetEventRequest           protoreflect.MessageDescriptor
-	fd_QueryGetEventRequest_organizer protoreflect.FieldDescriptor
+	md_QueryGetEventRequest    protoreflect.MessageDescriptor
+	fd_QueryGetEventRequest_id protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_ems_v1_query_proto_init()
 	md_QueryGetEventRequest = File_ems_v1_query_proto.Messages().ByName("QueryGetEventRequest")
-	fd_QueryGetEventRequest_organizer = md_QueryGetEventRequest.Fields().ByName("organizer")
+	fd_QueryGetEventRequest_id = md_QueryGetEventRequest.Fields().ByName("id")
 }
 
 var _ protoreflect.Message = (*fastReflection_QueryGetEventRequest)(nil)
@@ -880,9 +880,9 @@ func (x *fastReflection_QueryGetEventRequest) Interface() protoreflect.ProtoMess
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_QueryGetEventRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Organizer != "" {
-		value := protoreflect.ValueOfString(x.Organizer)
-		if !f(fd_QueryGetEventRequest_organizer, value) {
+	if x.Id != "" {
+		value := protoreflect.ValueOfString(x.Id)
+		if !f(fd_QueryGetEventRequest_id, value) {
 			return
 		}
 	}
@@ -901,8 +901,8 @@ func (x *fastReflection_QueryGetEventRequest) Range(f func(protoreflect.FieldDes
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryGetEventRequest) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
-		return x.Organizer != ""
+	case "ems.v1.QueryGetEventRequest.id":
+		return x.Id != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventRequest"))
@@ -919,8 +919,8 @@ func (x *fastReflection_QueryGetEventRequest) Has(fd protoreflect.FieldDescripto
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventRequest) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
-		x.Organizer = ""
+	case "ems.v1.QueryGetEventRequest.id":
+		x.Id = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventRequest"))
@@ -937,8 +937,8 @@ func (x *fastReflection_QueryGetEventRequest) Clear(fd protoreflect.FieldDescrip
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryGetEventRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
-		value := x.Organizer
+	case "ems.v1.QueryGetEventRequest.id":
+		value := x.Id
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
@@ -960,8 +960,8 @@ func (x *fastReflection_QueryGetEventRequest) Get(descriptor protoreflect.FieldD
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
-		x.Organizer = value.Interface().(string)
+	case "ems.v1.QueryGetEventRequest.id":
+		x.Id = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventRequest"))
@@ -982,8 +982,8 @@ func (x *fastReflection_QueryGetEventRequest) Set(fd protoreflect.FieldDescripto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
-		panic(fmt.Errorf("field organizer of message ems.v1.QueryGetEventRequest is not mutable"))
+	case "ems.v1.QueryGetEventRequest.id":
+		panic(fmt.Errorf("field id of message ems.v1.QueryGetEventRequest is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventRequest"))
@@ -997,7 +997,7 @@ func (x *fastReflection_QueryGetEventRequest) Mutable(fd protoreflect.FieldDescr
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryGetEventRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventRequest.organizer":
+	case "ems.v1.QueryGetEventRequest.id":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
@@ -1068,7 +1068,7 @@ func (x *fastReflection_QueryGetEventRequest) ProtoMethods() *protoiface.Methods
 		var n int
 		var l int
 		_ = l
-		l = len(x.Organizer)
+		l = len(x.Id)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -1101,10 +1101,10 @@ func (x *fastReflection_QueryGetEventRequest) ProtoMethods() *protoiface.Methods
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.Organizer) > 0 {
-			i -= len(x.Organizer)
-			copy(dAtA[i:], x.Organizer)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Organizer)))
+		if len(x.Id) > 0 {
+			i -= len(x.Id)
+			copy(dAtA[i:], x.Id)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Id)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -1159,7 +1159,7 @@ func (x *fastReflection_QueryGetEventRequest) ProtoMethods() *protoiface.Methods
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Organizer", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -1187,7 +1187,7 @@ func (x *fastReflection_QueryGetEventRequest) ProtoMethods() *protoiface.Methods
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Organizer = string(dAtA[iNdEx:postIndex])
+				x.Id = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -1225,14 +1225,14 @@ func (x *fastReflection_QueryGetEventRequest) ProtoMethods() *protoiface.Methods
 }
 
 var (
-	md_QueryGetEventResponse      protoreflect.MessageDescriptor
-	fd_QueryGetEventResponse_name protoreflect.FieldDescriptor
+	md_QueryGetEventResponse       protoreflect.MessageDescriptor
+	fd_QueryGetEventResponse_event protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_ems_v1_query_proto_init()
 	md_QueryGetEventResponse = File_ems_v1_query_proto.Messages().ByName("QueryGetEventResponse")
-	fd_QueryGetEventResponse_name = md_QueryGetEventResponse.Fields().ByName("name")
+	fd_QueryGetEventResponse_event = md_QueryGetEventResponse.Fields().ByName("event")
 }
 
 var _ protoreflect.Message = (*fastReflection_QueryGetEventResponse)(nil)
@@ -1300,9 +1300,9 @@ func (x *fastReflection_QueryGetEventResponse) Interface() protoreflect.ProtoMes
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_QueryGetEventResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Name != "" {
-		value := protoreflect.ValueOfString(x.Name)
-		if !f(fd_QueryGetEventResponse_name, value) {
+	if x.Event != nil {
+		value := protoreflect.ValueOfMessage(x.Event.ProtoReflect())
+		if !f(fd_QueryGetEventResponse_event, value) {
 			return
 		}
 	}
@@ -1321,8 +1321,8 @@ func (x *fastReflection_QueryGetEventResponse) Range(f func(protoreflect.FieldDe
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryGetEventResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		return x.Name != ""
+	case "ems.v1.QueryGetEventResponse.event":
+		return x.Event != nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1339,8 +1339,8 @@ func (x *fastReflection_QueryGetEventResponse) Has(fd protoreflect.FieldDescript
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		x.Name = ""
+	case "ems.v1.QueryGetEventResponse.event":
+		x.Event = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1357,9 +1357,9 @@ func (x *fastReflection_QueryGetEventResponse) Clear(fd protoreflect.FieldDescri
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryGetEventResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		value := x.Name
-		return protoreflect.ValueOfString(value)
+	case "ems.v1.QueryGetEventResponse.event":
+		value := x.Event
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1380,8 +1380,8 @@ func (x *fastReflection_QueryGetEventResponse) Get(descriptor protoreflect.Field
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		x.Name = value.Interface().(string)
+	case "ems.v1.QueryGetEventResponse.event":
+		x.Event = value.Message().Interface().(*Event)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1402,8 +1402,11 @@ func (x *fastReflection_QueryGetEventResponse) Set(fd protoreflect.FieldDescript
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryGetEventResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		panic(fmt.Errorf("field name of message ems.v1.QueryGetEventResponse is not mutable"))
+	case "ems.v1.QueryGetEventResponse.event":
+		if x.Event == nil {
+			x.Event = new(Event)
+		}
+		return protoreflect.ValueOfMessage(x.Event.ProtoReflect())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1417,8 +1420,9 @@ func (x *fastReflection_QueryGetEventResponse) Mutable(fd protoreflect.FieldDesc
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryGetEventResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "ems.v1.QueryGetEventResponse.name":
-		return protoreflect.ValueOfString("")
+	case "ems.v1.QueryGetEventResponse.event":
+		m := new(Event)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.QueryGetEventResponse"))
@@ -1488,8 +1492,8 @@ func (x *fastReflection_QueryGetEventResponse) ProtoMethods() *protoiface.Method
 		var n int
 		var l int
 		_ = l
-		l = len(x.Name)
-		if l > 0 {
+		if x.Event != nil {
+			l = options.Size(x.Event)
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.unknownFields != nil {
@@ -1521,10 +1525,17 @@ func (x *fastReflection_QueryGetEventResponse) ProtoMethods() *protoiface.Method
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.Name) > 0 {
-			i -= len(x.Name)
-			copy(dAtA[i:], x.Name)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Name)))
+		if x.Event != nil {
+			encoded, err := options.Marshal(x.Event)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -1579,9 +1590,9 @@ func (x *fastReflection_QueryGetEventResponse) ProtoMethods() *protoiface.Method
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Event", wireType)
 				}
-				var stringLen uint64
+				var msglen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -1591,23 +1602,27 @@ func (x *fastReflection_QueryGetEventResponse) ProtoMethods() *protoiface.Method
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					msglen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
+				if msglen < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
-				postIndex := iNdEx + intStringLen
+				postIndex := iNdEx + msglen
 				if postIndex < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Name = string(dAtA[iNdEx:postIndex])
+				if x.Event == nil {
+					x.Event = &Event{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Event); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -1727,7 +1742,7 @@ type QueryGetEventRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Organizer string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (x *QueryGetEventRequest) Reset() {
@@ -1750,9 +1765,9 @@ func (*QueryGetEventRequest) Descriptor() ([]byte, []int) {
 	return file_ems_v1_query_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *QueryGetEventRequest) GetOrganizer() string {
+func (x *QueryGetEventRequest) GetId() string {
 	if x != nil {
-		return x.Organizer
+		return x.Id
 	}
 	return ""
 }
@@ -1763,8 +1778,7 @@ type QueryGetEventResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// params defines the parameters of the module.
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Event *Event `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
 }
 
 func (x *QueryGetEventResponse) Reset() {
@@ -1787,11 +1801,11 @@ func (*QueryGetEventResponse) Descriptor() ([]byte, []int) {
 	return file_ems_v1_query_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *QueryGetEventResponse) GetName() string {
+func (x *QueryGetEventResponse) GetEvent() *Event {
 	if x != nil {
-		return x.Name
+		return x.Event
 	}
-	return ""
+	return nil
 }
 
 var File_ems_v1_query_proto protoreflect.FileDescriptor
@@ -1802,40 +1816,41 @@ var file_ems_v1_query_proto_rawDesc = []byte{
 	0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x65, 0x6d, 0x73, 0x2f,
 	0x76, 0x31, 0x2f, 0x67, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x14, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x3d, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a,
-	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e,
-	0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x34, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65,
-	0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a,
-	0x09, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x09, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x22, 0x2b, 0x0a, 0x15, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x32, 0xcd, 0x01, 0x0a, 0x05, 0x51, 0x75, 0x65,
-	0x72, 0x79, 0x12, 0x59, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x1a, 0x2e, 0x65,
-	0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76,
-	0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x16, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x10, 0x12, 0x0e, 0x2f,
-	0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x69, 0x0a,
-	0x08, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x1c, 0x2e, 0x65, 0x6d, 0x73, 0x2e,
-	0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31,
-	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x20, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x12, 0x18,
-	0x2f, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x6e, 0x61, 0x6d, 0x65, 0x2f, 0x7b, 0x6f, 0x72,
-	0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x7d, 0x42, 0x88, 0x01, 0x0a, 0x0a, 0x63, 0x6f, 0x6d,
-	0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72,
-	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x72, 0x6f, 0x6c, 0x6c, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x73, 0x2f, 0x64, 0x6d, 0x68,
-	0x61, 0x63, 0x6b, 0x6d, 0x6f, 0x73, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6d, 0x73, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x45,
-	0x58, 0x58, 0xaa, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x06, 0x45, 0x6d,
-	0x73, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x12, 0x45, 0x6d, 0x73, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50,
-	0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x07, 0x45, 0x6d, 0x73, 0x3a,
-	0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x1a, 0x10, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x6d, 0x73, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x22, 0x14, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x3d, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x26, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x0e, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
+	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x26, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x3c, 0x0a, 0x15, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x05, 0x65, 0x76, 0x65, 0x6e,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31,
+	0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x32, 0xc6, 0x01,
+	0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x59, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x12, 0x1a, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e,
+	0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x16, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x10, 0x12, 0x0e, 0x2f, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x62, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x1c,
+	0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x65,
+	0x6d, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x19, 0x82, 0xd3, 0xe4,
+	0x93, 0x02, 0x13, 0x12, 0x11, 0x2f, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x6e, 0x61, 0x6d,
+	0x65, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x42, 0x88, 0x01, 0x0a, 0x0a, 0x63, 0x6f, 0x6d, 0x2e, 0x65,
+	0x6d, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x72, 0x6f, 0x6c, 0x6c, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x73, 0x2f, 0x64, 0x6d, 0x68, 0x61, 0x63,
+	0x6b, 0x6d, 0x6f, 0x73, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6d,
+	0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6d, 0x73, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x45, 0x58, 0x58,
+	0xaa, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x5c,
+	0x56, 0x31, 0xe2, 0x02, 0x12, 0x45, 0x6d, 0x73, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d,
+	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x07, 0x45, 0x6d, 0x73, 0x3a, 0x3a, 0x56,
+	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1857,18 +1872,20 @@ var file_ems_v1_query_proto_goTypes = []interface{}{
 	(*QueryGetEventRequest)(nil),  // 2: ems.v1.QueryGetEventRequest
 	(*QueryGetEventResponse)(nil), // 3: ems.v1.QueryGetEventResponse
 	(*Params)(nil),                // 4: ems.v1.Params
+	(*Event)(nil),                 // 5: ems.v1.Event
 }
 var file_ems_v1_query_proto_depIdxs = []int32{
 	4, // 0: ems.v1.QueryParamsResponse.params:type_name -> ems.v1.Params
-	0, // 1: ems.v1.Query.Params:input_type -> ems.v1.QueryParamsRequest
-	2, // 2: ems.v1.Query.GetEvent:input_type -> ems.v1.QueryGetEventRequest
-	1, // 3: ems.v1.Query.Params:output_type -> ems.v1.QueryParamsResponse
-	3, // 4: ems.v1.Query.GetEvent:output_type -> ems.v1.QueryGetEventResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	5, // 1: ems.v1.QueryGetEventResponse.event:type_name -> ems.v1.Event
+	0, // 2: ems.v1.Query.Params:input_type -> ems.v1.QueryParamsRequest
+	2, // 3: ems.v1.Query.GetEvent:input_type -> ems.v1.QueryGetEventRequest
+	1, // 4: ems.v1.Query.Params:output_type -> ems.v1.QueryParamsResponse
+	3, // 5: ems.v1.Query.GetEvent:output_type -> ems.v1.QueryGetEventResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_ems_v1_query_proto_init() }
@@ -1877,6 +1894,7 @@ func file_ems_v1_query_proto_init() {
 		return
 	}
 	file_ems_v1_genesis_proto_init()
+	file_ems_v1_ems_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_ems_v1_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryParamsRequest); i {
