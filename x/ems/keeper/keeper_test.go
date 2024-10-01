@@ -80,10 +80,10 @@ func SetupTest(t *testing.T) *testFixture {
 	registerBaseSDKModules(f, encCfg, storeService, logger, require)
 
 	// Setup Keeper.
-	f.k = keeper.NewKeeper(encCfg.Codec, authcodec.NewBech32Codec("dmhackmos"), storeService, logger, f.govModAddr, f.nftkeeper)
+	f.k = keeper.NewKeeper(encCfg.Codec, authcodec.NewBech32Codec("dmhackmos"), storeService, logger, f.govModAddr, f.nftkeeper, f.mintkeeper, f.bankkeeper)
 	f.msgServer = keeper.NewMsgServerImpl(f.k)
 	f.queryServer = keeper.NewQuerier(f.k)
-	f.appModule = module.NewAppModule(encCfg.Codec, f.k, f.nftkeeper)
+	f.appModule = module.NewAppModule(encCfg.Codec, f.k, f.nftkeeper, f.mintkeeper, f.bankkeeper)
 
 	return f
 }

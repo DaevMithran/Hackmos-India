@@ -20,7 +20,9 @@ import (
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
 
 	nft "cosmossdk.io/x/nft"
-	nftKeeper "cosmossdk.io/x/nft/keeper"
+	nftkeeper "cosmossdk.io/x/nft/keeper"
+	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	mintkeeper "github.com/cosmos/cosmos-sdk/x/mint/keeper"
 )
 
 type Keeper struct {
@@ -38,7 +40,9 @@ type Keeper struct {
 
 	EventMapping collections.Map[string, types.Event]
 
-	Nftkeeper nftKeeper.Keeper
+	Nftkeeper nftkeeper.Keeper
+	Mintkeeper mintkeeper.Keeper
+	BankKeeper bankkeeper.Keeper
 }
 
 // NewKeeper creates a new Keeper instance
@@ -48,7 +52,9 @@ func NewKeeper(
 	storeService storetypes.KVStoreService,
 	logger log.Logger,
 	authority string,
-	nftKeeper nftKeeper.Keeper,
+	nftKeeper nftkeeper.Keeper,
+	mintKeeper mintkeeper.Keeper,
+	bankKeeper bankkeeper.Keeper,
 ) Keeper {
 	logger = logger.With(log.ModuleKey, "x/"+types.ModuleName)
 
@@ -81,6 +87,8 @@ func NewKeeper(
 		EventMapping: collections.NewMap(sb, collections.NewPrefix(1), "event_mapping", collections.StringKey, codec.CollValue[types.Event](cdc)),
 
 		Nftkeeper: nftKeeper,
+		Mintkeeper: mintKeeper,
+		BankKeeper: bankKeeper,
 	}
 
 	schema, err := sb.Build()
@@ -157,7 +165,7 @@ func (k Keeper) RemoveEvent(ctx context.Context, id string) error {
     return nil
 }
 
-func (k Keeper) MintEventNFT(ctx context.Context, senderAddr sdk.AccAddress, receiverAddr sdk.AccAddress, id string) error {
+func (k Keeper) MintEventNFT(ctx context.Context, receiverAddr sdk.AccAddress, id string) error {
 	nftId := receiverAddr.String() + "-" + id
 
 	event, err := k.GetEvent(ctx, id) 
@@ -177,4 +185,21 @@ func (k Keeper) MintEventNFT(ctx context.Context, senderAddr sdk.AccAddress, rec
 		ClassId: id,
 		Id: nftId,
 	}, receiverAddr)
+}
+
+func (k Keeper) MintEventToken(ctx context.Context, senderAddr sdk.AccAddress, receiverAddr sdk.AccAddress, id string) error {
+	_, err := k.GetEvent(ctx, id) 
+	if err != nil {
+		return err
+	}
+
+	coin := sdk.NewInt64Coin(id, 1);
+	coins := make(sdk.Coins, 1);
+	coins.Add(coin)
+	err = k.Mintkeeper.MintCoins(ctx, coins)
+	if err != nil {
+		return err
+	}
+
+	return k.BankKeeper.SendCoins(ctx, senderAddr, receiverAddr, coins)
 }

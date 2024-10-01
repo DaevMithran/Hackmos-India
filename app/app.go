@@ -611,6 +611,8 @@ func NewChainApp(
 		logger,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		app.NFTKeeper,
+		app.MintKeeper,
+		app.BankKeeper,
 	)
 
 	// Create the tokenfactory keeper
@@ -777,7 +779,7 @@ func NewChainApp(
 		// custom
 		tokenfactory.NewAppModule(app.TokenFactoryKeeper, app.AccountKeeper, app.BankKeeper, app.GetSubspace(tokenfactorytypes.ModuleName)),
 		packetforward.NewAppModule(app.PacketForwardKeeper, app.GetSubspace(packetforwardtypes.ModuleName)),
-		ems.NewAppModule(appCodec, app.EmsKeeper, app.NFTKeeper),
+		ems.NewAppModule(appCodec, app.EmsKeeper, app.NFTKeeper, app.MintKeeper, app.BankKeeper),
 
 	)
 

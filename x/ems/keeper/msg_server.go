@@ -71,9 +71,15 @@ func (ms msgServer) MsgIssueEventNFT(ctx context.Context, msg *types.MsgIssueEve
 		return nil, sdkerrors.ErrInvalidAddress.Wrapf("invalid to address: %s", err)
 	}
 
-    err = ms.k.MintEventNFT(ctx, organizer, receiver, msg.Id)
+	if msg.Nft {
+    err = ms.k.MintEventNFT(ctx, receiver, msg.Id)
 	if err != nil {
 		return nil, err
+	} } else {
+		err = ms.k.MintEventToken(ctx, organizer, receiver, msg.Id)
+		if err != nil {
+			return nil, err
+		} 
 	}
 
 	return &types.MsgIssueEventNFTResponse{}, nil

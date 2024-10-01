@@ -18,6 +18,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
+	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	mintkeeper "github.com/cosmos/cosmos-sdk/x/mint/keeper"
 	"github.com/rollchains/dmhackmoschain/x/ems/keeper"
 	"github.com/rollchains/dmhackmoschain/x/ems/types"
 
@@ -51,6 +53,8 @@ type AppModule struct {
 	keeper keeper.Keeper
 
 	nftKeeper nftkeeper.Keeper
+	mintKeeper mintkeeper.Keeper
+	bankKeeper bankkeeper.Keeper
 }
 
 // NewAppModule constructor
@@ -58,11 +62,15 @@ func NewAppModule(
 	cdc codec.Codec,
 	keeper keeper.Keeper,
 	nftKeeper nftkeeper.Keeper,
+	mintKeeper mintkeeper.Keeper,
+	bankKeeper bankkeeper.Keeper,
 ) *AppModule {
 	return &AppModule{
 		AppModuleBasic: AppModuleBasic{cdc: cdc},
 		keeper:         keeper,
 		nftKeeper: nftKeeper,
+		mintKeeper: mintKeeper,
+		bankKeeper: bankKeeper,
 	}
 }
 
