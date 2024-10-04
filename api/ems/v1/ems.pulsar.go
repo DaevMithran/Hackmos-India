@@ -61,9 +61,13 @@ func (x *_Event_3_list) IsValid() bool {
 }
 
 var (
-	md_Event            protoreflect.MessageDescriptor
-	fd_Event_name       protoreflect.FieldDescriptor
-	fd_Event_organizers protoreflect.FieldDescriptor
+	md_Event                protoreflect.MessageDescriptor
+	fd_Event_name           protoreflect.FieldDescriptor
+	fd_Event_organizers     protoreflect.FieldDescriptor
+	fd_Event_active         protoreflect.FieldDescriptor
+	fd_Event_nft_price      protoreflect.FieldDescriptor
+	fd_Event_token_price    protoreflect.FieldDescriptor
+	fd_Event_max_organizers protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -71,6 +75,10 @@ func init() {
 	md_Event = File_ems_v1_ems_proto.Messages().ByName("Event")
 	fd_Event_name = md_Event.Fields().ByName("name")
 	fd_Event_organizers = md_Event.Fields().ByName("organizers")
+	fd_Event_active = md_Event.Fields().ByName("active")
+	fd_Event_nft_price = md_Event.Fields().ByName("nft_price")
+	fd_Event_token_price = md_Event.Fields().ByName("token_price")
+	fd_Event_max_organizers = md_Event.Fields().ByName("max_organizers")
 }
 
 var _ protoreflect.Message = (*fastReflection_Event)(nil)
@@ -150,6 +158,30 @@ func (x *fastReflection_Event) Range(f func(protoreflect.FieldDescriptor, protor
 			return
 		}
 	}
+	if x.Active != false {
+		value := protoreflect.ValueOfBool(x.Active)
+		if !f(fd_Event_active, value) {
+			return
+		}
+	}
+	if x.NftPrice != int32(0) {
+		value := protoreflect.ValueOfInt32(x.NftPrice)
+		if !f(fd_Event_nft_price, value) {
+			return
+		}
+	}
+	if x.TokenPrice != int32(0) {
+		value := protoreflect.ValueOfInt32(x.TokenPrice)
+		if !f(fd_Event_token_price, value) {
+			return
+		}
+	}
+	if x.MaxOrganizers != int32(0) {
+		value := protoreflect.ValueOfInt32(x.MaxOrganizers)
+		if !f(fd_Event_max_organizers, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -169,6 +201,14 @@ func (x *fastReflection_Event) Has(fd protoreflect.FieldDescriptor) bool {
 		return x.Name != ""
 	case "ems.v1.Event.organizers":
 		return len(x.Organizers) != 0
+	case "ems.v1.Event.active":
+		return x.Active != false
+	case "ems.v1.Event.nft_price":
+		return x.NftPrice != int32(0)
+	case "ems.v1.Event.token_price":
+		return x.TokenPrice != int32(0)
+	case "ems.v1.Event.max_organizers":
+		return x.MaxOrganizers != int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -189,6 +229,14 @@ func (x *fastReflection_Event) Clear(fd protoreflect.FieldDescriptor) {
 		x.Name = ""
 	case "ems.v1.Event.organizers":
 		x.Organizers = nil
+	case "ems.v1.Event.active":
+		x.Active = false
+	case "ems.v1.Event.nft_price":
+		x.NftPrice = int32(0)
+	case "ems.v1.Event.token_price":
+		x.TokenPrice = int32(0)
+	case "ems.v1.Event.max_organizers":
+		x.MaxOrganizers = int32(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -214,6 +262,18 @@ func (x *fastReflection_Event) Get(descriptor protoreflect.FieldDescriptor) prot
 		}
 		listValue := &_Event_3_list{list: &x.Organizers}
 		return protoreflect.ValueOfList(listValue)
+	case "ems.v1.Event.active":
+		value := x.Active
+		return protoreflect.ValueOfBool(value)
+	case "ems.v1.Event.nft_price":
+		value := x.NftPrice
+		return protoreflect.ValueOfInt32(value)
+	case "ems.v1.Event.token_price":
+		value := x.TokenPrice
+		return protoreflect.ValueOfInt32(value)
+	case "ems.v1.Event.max_organizers":
+		value := x.MaxOrganizers
+		return protoreflect.ValueOfInt32(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -240,6 +300,14 @@ func (x *fastReflection_Event) Set(fd protoreflect.FieldDescriptor, value protor
 		lv := value.List()
 		clv := lv.(*_Event_3_list)
 		x.Organizers = *clv.list
+	case "ems.v1.Event.active":
+		x.Active = value.Bool()
+	case "ems.v1.Event.nft_price":
+		x.NftPrice = int32(value.Int())
+	case "ems.v1.Event.token_price":
+		x.TokenPrice = int32(value.Int())
+	case "ems.v1.Event.max_organizers":
+		x.MaxOrganizers = int32(value.Int())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -268,6 +336,14 @@ func (x *fastReflection_Event) Mutable(fd protoreflect.FieldDescriptor) protoref
 		return protoreflect.ValueOfList(value)
 	case "ems.v1.Event.name":
 		panic(fmt.Errorf("field name of message ems.v1.Event is not mutable"))
+	case "ems.v1.Event.active":
+		panic(fmt.Errorf("field active of message ems.v1.Event is not mutable"))
+	case "ems.v1.Event.nft_price":
+		panic(fmt.Errorf("field nft_price of message ems.v1.Event is not mutable"))
+	case "ems.v1.Event.token_price":
+		panic(fmt.Errorf("field token_price of message ems.v1.Event is not mutable"))
+	case "ems.v1.Event.max_organizers":
+		panic(fmt.Errorf("field max_organizers of message ems.v1.Event is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -286,6 +362,14 @@ func (x *fastReflection_Event) NewField(fd protoreflect.FieldDescriptor) protore
 	case "ems.v1.Event.organizers":
 		list := []string{}
 		return protoreflect.ValueOfList(&_Event_3_list{list: &list})
+	case "ems.v1.Event.active":
+		return protoreflect.ValueOfBool(false)
+	case "ems.v1.Event.nft_price":
+		return protoreflect.ValueOfInt32(int32(0))
+	case "ems.v1.Event.token_price":
+		return protoreflect.ValueOfInt32(int32(0))
+	case "ems.v1.Event.max_organizers":
+		return protoreflect.ValueOfInt32(int32(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: ems.v1.Event"))
@@ -365,6 +449,18 @@ func (x *fastReflection_Event) ProtoMethods() *protoiface.Methods {
 				n += 1 + l + runtime.Sov(uint64(l))
 			}
 		}
+		if x.Active {
+			n += 2
+		}
+		if x.NftPrice != 0 {
+			n += 1 + runtime.Sov(uint64(x.NftPrice))
+		}
+		if x.TokenPrice != 0 {
+			n += 1 + runtime.Sov(uint64(x.TokenPrice))
+		}
+		if x.MaxOrganizers != 0 {
+			n += 1 + runtime.Sov(uint64(x.MaxOrganizers))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -393,6 +489,31 @@ func (x *fastReflection_Event) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.MaxOrganizers != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.MaxOrganizers))
+			i--
+			dAtA[i] = 0x38
+		}
+		if x.TokenPrice != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.TokenPrice))
+			i--
+			dAtA[i] = 0x30
+		}
+		if x.NftPrice != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.NftPrice))
+			i--
+			dAtA[i] = 0x28
+		}
+		if x.Active {
+			i--
+			if x.Active {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
+			i--
+			dAtA[i] = 0x20
 		}
 		if len(x.Organizers) > 0 {
 			for iNdEx := len(x.Organizers) - 1; iNdEx >= 0; iNdEx-- {
@@ -523,6 +644,83 @@ func (x *fastReflection_Event) ProtoMethods() *protoiface.Methods {
 				}
 				x.Organizers = append(x.Organizers, string(dAtA[iNdEx:postIndex]))
 				iNdEx = postIndex
+			case 4:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Active", wireType)
+				}
+				var v int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				x.Active = bool(v != 0)
+			case 5:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field NftPrice", wireType)
+				}
+				x.NftPrice = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.NftPrice |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 6:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TokenPrice", wireType)
+				}
+				x.TokenPrice = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.TokenPrice |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 7:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field MaxOrganizers", wireType)
+				}
+				x.MaxOrganizers = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.MaxOrganizers |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -576,8 +774,12 @@ type Event struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name       string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Organizers []string `protobuf:"bytes,3,rep,name=organizers,proto3" json:"organizers,omitempty"`
+	Name          string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Organizers    []string `protobuf:"bytes,3,rep,name=organizers,proto3" json:"organizers,omitempty"`
+	Active        bool     `protobuf:"varint,4,opt,name=active,proto3" json:"active,omitempty"`
+	NftPrice      int32    `protobuf:"varint,5,opt,name=nft_price,json=nftPrice,proto3" json:"nft_price,omitempty"`
+	TokenPrice    int32    `protobuf:"varint,6,opt,name=token_price,json=tokenPrice,proto3" json:"token_price,omitempty"`
+	MaxOrganizers int32    `protobuf:"varint,7,opt,name=max_organizers,json=maxOrganizers,proto3" json:"max_organizers,omitempty"`
 }
 
 func (x *Event) Reset() {
@@ -614,6 +816,34 @@ func (x *Event) GetOrganizers() []string {
 	return nil
 }
 
+func (x *Event) GetActive() bool {
+	if x != nil {
+		return x.Active
+	}
+	return false
+}
+
+func (x *Event) GetNftPrice() int32 {
+	if x != nil {
+		return x.NftPrice
+	}
+	return 0
+}
+
+func (x *Event) GetTokenPrice() int32 {
+	if x != nil {
+		return x.TokenPrice
+	}
+	return 0
+}
+
+func (x *Event) GetMaxOrganizers() int32 {
+	if x != nil {
+		return x.MaxOrganizers
+	}
+	return 0
+}
+
 var File_ems_v1_ems_proto protoreflect.FileDescriptor
 
 var file_ems_v1_ems_proto_rawDesc = []byte{
@@ -621,20 +851,27 @@ var file_ems_v1_ems_proto_rawDesc = []byte{
 	0x74, 0x6f, 0x12, 0x06, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x22, 0x3b, 0x0a, 0x05, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x12, 0x1e, 0x0a, 0x0a, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x73, 0x18, 0x03,
-	0x20, 0x03, 0x28, 0x09, 0x52, 0x0a, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x73,
-	0x42, 0x86, 0x01, 0x0a, 0x0a, 0x63, 0x6f, 0x6d, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x42,
-	0x08, 0x45, 0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x35, 0x67, 0x69, 0x74,
-	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x72, 0x6f, 0x6c, 0x6c, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x73, 0x2f, 0x64, 0x6d, 0x68, 0x61, 0x63, 0x6b, 0x6d, 0x6f, 0x73, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6d, 0x73,
-	0x76, 0x31, 0xa2, 0x02, 0x03, 0x45, 0x58, 0x58, 0xaa, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x2e, 0x56,
-	0x31, 0xca, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x12, 0x45, 0x6d, 0x73,
-	0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
-	0x02, 0x07, 0x45, 0x6d, 0x73, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6f, 0x74, 0x6f, 0x22, 0xb8, 0x01, 0x0a, 0x05, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x12, 0x0a,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x73, 0x18,
+	0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0a, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72,
+	0x73, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x08, 0x52, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6e, 0x66, 0x74,
+	0x5f, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x6e, 0x66,
+	0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x5f,
+	0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x74, 0x6f, 0x6b,
+	0x65, 0x6e, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x6d, 0x61, 0x78, 0x5f, 0x6f,
+	0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x0d, 0x6d, 0x61, 0x78, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x65, 0x72, 0x73, 0x42, 0x86,
+	0x01, 0x0a, 0x0a, 0x63, 0x6f, 0x6d, 0x2e, 0x65, 0x6d, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x08, 0x45,
+	0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x72, 0x6f, 0x6c, 0x6c, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x73,
+	0x2f, 0x64, 0x6d, 0x68, 0x61, 0x63, 0x6b, 0x6d, 0x6f, 0x73, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x61, 0x70, 0x69, 0x2f, 0x65, 0x6d, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6d, 0x73, 0x76, 0x31,
+	0xa2, 0x02, 0x03, 0x45, 0x58, 0x58, 0xaa, 0x02, 0x06, 0x45, 0x6d, 0x73, 0x2e, 0x56, 0x31, 0xca,
+	0x02, 0x06, 0x45, 0x6d, 0x73, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x12, 0x45, 0x6d, 0x73, 0x5c, 0x56,
+	0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x07,
+	0x45, 0x6d, 0x73, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

@@ -8,11 +8,13 @@ import (
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/address"
 	storetypes "cosmossdk.io/core/store"
 	"cosmossdk.io/log"
+	"cosmossdk.io/math"
 	"cosmossdk.io/orm/model/ormdb"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -129,7 +131,7 @@ func (k *Keeper) ExportGenesis(ctx context.Context) *types.GenesisState {
 	}
 }
 
-func (k Keeper) CreateEvent(ctx context.Context, id string, name string, account sdk.AccAddress) error {
+func (k Keeper) CreateEvent(ctx context.Context, id string, name string, account sdk.AccAddress, nftPrice int32, tokenPrice int32, tokenSupply int64, maxOrganizers int32) error {
     has, err := k.EventMapping.Has(ctx, id)
     if err != nil {
         return err
@@ -137,14 +139,38 @@ func (k Keeper) CreateEvent(ctx context.Context, id string, name string, account
     if has {
         return fmt.Errorf("event already exists: %s", id)
     }
+
+	if nftPrice == 0 {
+        nftPrice = 5 // default nftPrice
+    }
+    if tokenPrice == 0 {
+        tokenPrice = 1 // default tokenPrice
+    }
+    if tokenSupply == 0 {
+        tokenSupply = 1000 // default tokenSupply
+    }
+    if maxOrganizers == 0 {
+       maxOrganizers = 10 // default MaxOrganizers
+    }
     
     err = k.EventMapping.Set(ctx, id, types.Event {
 		Name: name,
-		Organizers: []string { string(account) },
+		Organizers: []string { account.String() },
+		Active: true,
+		NftPrice: nftPrice,
+		TokenPrice: tokenPrice,
+		MaxOrganizers: maxOrganizers,
 	})
     if err != nil {
         return err
     }
+	// mint tokens
+	coins := sdk.NewCoins(sdk.NewCoin(id, math.NewInt(tokenSupply)))
+	err = k.Mintkeeper.MintCoins(ctx, coins)
+	if err != nil {
+		return err
+	}
+
     return nil
 }
 
@@ -181,25 +207,147 @@ func (k Keeper) MintEventNFT(ctx context.Context, receiverAddr sdk.AccAddress, i
 		return nil
 	}
 
+	coins := sdk.NewCoins(sdk.NewCoin("udmhackmos", math.NewInt(int64(event.NftPrice))))
+	// receive payment
+	k.BankKeeper.SendCoinsFromAccountToModule(ctx, receiverAddr, types.ModuleName, coins)
+
 	return k.Nftkeeper.Mint(ctx, nft.NFT {
 		ClassId: id,
 		Id: nftId,
 	}, receiverAddr)
 }
 
-func (k Keeper) MintEventToken(ctx context.Context, senderAddr sdk.AccAddress, receiverAddr sdk.AccAddress, id string) error {
-	_, err := k.GetEvent(ctx, id) 
+func (k Keeper) IssueEventToken(ctx context.Context, receiverAddr sdk.AccAddress, id string) error {
+	event, err := k.GetEvent(ctx, id) 
+	if err != nil {
+		return err
+	}
+	coins := sdk.NewCoins(sdk.NewCoin("udmhackmos", math.NewInt(int64(event.TokenPrice))))
+	// receive payment
+	k.BankKeeper.SendCoinsFromAccountToModule(ctx, receiverAddr, types.ModuleName, coins)
+
+	// issue token
+	eventToken := sdk.NewCoins(sdk.NewCoin(id, math.NewInt(1)))
+	return k.BankKeeper.SendCoinsFromModuleToAccount(ctx, minttypes.ModuleName, receiverAddr, eventToken)
+}
+
+func (k Keeper) AddOrganizer(ctx context.Context, organizer sdk.AccAddress, member sdk.AccAddress, id string) error {
+	isOrg, err := k.isOrganizer(ctx, id, organizer)
+	if err != nil {
+		return err
+	}
+	if !isOrg {
+		return fmt.Errorf("permission denied")
+	}
+
+	event, err := k.GetEvent(ctx, id)
 	if err != nil {
 		return err
 	}
 
-	coin := sdk.NewInt64Coin(id, 1);
-	coins := make(sdk.Coins, 1);
-	coins.Add(coin)
-	err = k.Mintkeeper.MintCoins(ctx, coins)
+	for _, org := range event.Organizers {
+        if org == member.String() {
+            return nil
+        }
+    }
+    
+    return k.EventMapping.Set(ctx, id, types.Event {
+		Name: event.Name,
+		Organizers: append(event.Organizers, member.String()),
+		Active: event.Active, 
+	})
+}
+
+func (k Keeper) RemoveOrganizer(ctx context.Context, organizer sdk.AccAddress, organizerToRemove sdk.AccAddress, id string) error {
+	isOrg, err := k.isOrganizer(ctx, id, organizer)
+	if err != nil {
+		return err
+	}
+	if !isOrg {
+		return fmt.Errorf("permission denied")
+	}
+
+	isOrg, err = k.isOrganizer(ctx, id, organizerToRemove)
 	if err != nil {
 		return err
 	}
 
-	return k.BankKeeper.SendCoins(ctx, senderAddr, receiverAddr, coins)
+	if !isOrg {
+		return nil
+	}
+
+	if organizer.String() == organizerToRemove.String() {
+		return fmt.Errorf("permission denied")
+	}
+
+	event, err := k.GetEvent(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	if event.MaxOrganizers == int32(len(event.Organizers)) {
+		return fmt.Errorf("max limit reached for organizers")
+	}
+
+	for _, org := range event.Organizers {
+        if org == organizerToRemove.String() {
+            return nil
+        }
+    }
+    
+    return k.EventMapping.Set(ctx, id, types.Event {
+		Name: event.Name,
+		Organizers: remove(event.Organizers, organizerToRemove.String()) },
+	)
+}
+
+func remove(slice []string, item string) []string {
+    for i, str := range slice {
+        if str == item {
+            return append(slice[:i], slice[i+1:]...)
+        }
+    }
+    return slice
+}
+
+
+func (k Keeper) isOrganizer(ctx context.Context, id string, organizer sdk.AccAddress) (bool, error) {
+	event, err := k.GetEvent(ctx, id)
+	if err != nil {
+		return false, err
+	}
+
+	for _, v := range event.Organizers {
+		if v == organizer.String() {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+func (k Keeper) isActive(ctx context.Context, id string) (bool, error) {
+	event, err := k.GetEvent(ctx, id)
+	if err != nil {
+		return false, err
+	}
+
+	return event.Active, nil
+}
+
+func (k Keeper) UpdateEventStatus(ctx context.Context, organizer sdk.AccAddress, id string, active bool) error {
+	event, err := k.GetEvent(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	if event.Active != active {
+		return k.EventMapping.Set(ctx, id, types.Event {
+			Name: event.Name,
+			Organizers: event.Organizers, 
+			Active: active, 
+		})
+	}
+
+	return nil
 }

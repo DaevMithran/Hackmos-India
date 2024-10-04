@@ -130,9 +130,13 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 type MsgCreateEventParams struct {
-	Organizer string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
-	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Id        string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+	Organizer     string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
+	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Id            string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+	NftPrice      int32  `protobuf:"varint,4,opt,name=nft_price,json=nftPrice,proto3" json:"nft_price,omitempty"`
+	TokenPrice    int32  `protobuf:"varint,5,opt,name=token_price,json=tokenPrice,proto3" json:"token_price,omitempty"`
+	TokenSupply   int64  `protobuf:"varint,6,opt,name=token_supply,json=tokenSupply,proto3" json:"token_supply,omitempty"`
+	MaxOrganizers int32  `protobuf:"varint,7,opt,name=max_organizers,json=maxOrganizers,proto3" json:"max_organizers,omitempty"`
 }
 
 func (m *MsgCreateEventParams) Reset()         { *m = MsgCreateEventParams{} }
@@ -189,6 +193,34 @@ func (m *MsgCreateEventParams) GetId() string {
 	return ""
 }
 
+func (m *MsgCreateEventParams) GetNftPrice() int32 {
+	if m != nil {
+		return m.NftPrice
+	}
+	return 0
+}
+
+func (m *MsgCreateEventParams) GetTokenPrice() int32 {
+	if m != nil {
+		return m.TokenPrice
+	}
+	return 0
+}
+
+func (m *MsgCreateEventParams) GetTokenSupply() int64 {
+	if m != nil {
+		return m.TokenSupply
+	}
+	return 0
+}
+
+func (m *MsgCreateEventParams) GetMaxOrganizers() int32 {
+	if m != nil {
+		return m.MaxOrganizers
+	}
+	return 0
+}
+
 type MsgCreateEventResponse struct {
 }
 
@@ -226,10 +258,9 @@ func (m *MsgCreateEventResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgCreateEventResponse proto.InternalMessageInfo
 
 type MsgIssueEventNFTParams struct {
-	Organizer string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
-	Receiver  string `protobuf:"bytes,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
-	Id        string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
-	Nft       bool   `protobuf:"varint,4,opt,name=nft,proto3" json:"nft,omitempty"`
+	Receiver string `protobuf:"bytes,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
+	Id       string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+	Nft      bool   `protobuf:"varint,4,opt,name=nft,proto3" json:"nft,omitempty"`
 }
 
 func (m *MsgIssueEventNFTParams) Reset()         { *m = MsgIssueEventNFTParams{} }
@@ -264,13 +295,6 @@ func (m *MsgIssueEventNFTParams) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_MsgIssueEventNFTParams proto.InternalMessageInfo
-
-func (m *MsgIssueEventNFTParams) GetOrganizer() string {
-	if m != nil {
-		return m.Organizer
-	}
-	return ""
-}
 
 func (m *MsgIssueEventNFTParams) GetReceiver() string {
 	if m != nil {
@@ -329,6 +353,198 @@ func (m *MsgIssueEventNFTResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgIssueEventNFTResponse proto.InternalMessageInfo
 
+type MsgAddEventOrganizerParams struct {
+	Organizer string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
+	Member    string `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
+	Id        string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgAddEventOrganizerParams) Reset()         { *m = MsgAddEventOrganizerParams{} }
+func (m *MsgAddEventOrganizerParams) String() string { return proto.CompactTextString(m) }
+func (*MsgAddEventOrganizerParams) ProtoMessage()    {}
+func (*MsgAddEventOrganizerParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a4be48c63a55e56f, []int{6}
+}
+func (m *MsgAddEventOrganizerParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgAddEventOrganizerParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgAddEventOrganizerParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgAddEventOrganizerParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddEventOrganizerParams.Merge(m, src)
+}
+func (m *MsgAddEventOrganizerParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgAddEventOrganizerParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddEventOrganizerParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgAddEventOrganizerParams proto.InternalMessageInfo
+
+func (m *MsgAddEventOrganizerParams) GetOrganizer() string {
+	if m != nil {
+		return m.Organizer
+	}
+	return ""
+}
+
+func (m *MsgAddEventOrganizerParams) GetMember() string {
+	if m != nil {
+		return m.Member
+	}
+	return ""
+}
+
+func (m *MsgAddEventOrganizerParams) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type MsgAddEventOrganizerResponse struct {
+}
+
+func (m *MsgAddEventOrganizerResponse) Reset()         { *m = MsgAddEventOrganizerResponse{} }
+func (m *MsgAddEventOrganizerResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddEventOrganizerResponse) ProtoMessage()    {}
+func (*MsgAddEventOrganizerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a4be48c63a55e56f, []int{7}
+}
+func (m *MsgAddEventOrganizerResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgAddEventOrganizerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgAddEventOrganizerResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgAddEventOrganizerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddEventOrganizerResponse.Merge(m, src)
+}
+func (m *MsgAddEventOrganizerResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgAddEventOrganizerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddEventOrganizerResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgAddEventOrganizerResponse proto.InternalMessageInfo
+
+type MsgUpdateEventStatusParams struct {
+	Organizer string `protobuf:"bytes,1,opt,name=organizer,proto3" json:"organizer,omitempty"`
+	Id        string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Active    bool   `protobuf:"varint,3,opt,name=active,proto3" json:"active,omitempty"`
+}
+
+func (m *MsgUpdateEventStatusParams) Reset()         { *m = MsgUpdateEventStatusParams{} }
+func (m *MsgUpdateEventStatusParams) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateEventStatusParams) ProtoMessage()    {}
+func (*MsgUpdateEventStatusParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a4be48c63a55e56f, []int{8}
+}
+func (m *MsgUpdateEventStatusParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateEventStatusParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateEventStatusParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateEventStatusParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateEventStatusParams.Merge(m, src)
+}
+func (m *MsgUpdateEventStatusParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateEventStatusParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateEventStatusParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateEventStatusParams proto.InternalMessageInfo
+
+func (m *MsgUpdateEventStatusParams) GetOrganizer() string {
+	if m != nil {
+		return m.Organizer
+	}
+	return ""
+}
+
+func (m *MsgUpdateEventStatusParams) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *MsgUpdateEventStatusParams) GetActive() bool {
+	if m != nil {
+		return m.Active
+	}
+	return false
+}
+
+type MsgUpdateEventStatusResponse struct {
+}
+
+func (m *MsgUpdateEventStatusResponse) Reset()         { *m = MsgUpdateEventStatusResponse{} }
+func (m *MsgUpdateEventStatusResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateEventStatusResponse) ProtoMessage()    {}
+func (*MsgUpdateEventStatusResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a4be48c63a55e56f, []int{9}
+}
+func (m *MsgUpdateEventStatusResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateEventStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateEventStatusResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateEventStatusResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateEventStatusResponse.Merge(m, src)
+}
+func (m *MsgUpdateEventStatusResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateEventStatusResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateEventStatusResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateEventStatusResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "ems.v1.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "ems.v1.MsgUpdateParamsResponse")
@@ -336,43 +552,59 @@ func init() {
 	proto.RegisterType((*MsgCreateEventResponse)(nil), "ems.v1.MsgCreateEventResponse")
 	proto.RegisterType((*MsgIssueEventNFTParams)(nil), "ems.v1.MsgIssueEventNFTParams")
 	proto.RegisterType((*MsgIssueEventNFTResponse)(nil), "ems.v1.MsgIssueEventNFTResponse")
+	proto.RegisterType((*MsgAddEventOrganizerParams)(nil), "ems.v1.MsgAddEventOrganizerParams")
+	proto.RegisterType((*MsgAddEventOrganizerResponse)(nil), "ems.v1.MsgAddEventOrganizerResponse")
+	proto.RegisterType((*MsgUpdateEventStatusParams)(nil), "ems.v1.MsgUpdateEventStatusParams")
+	proto.RegisterType((*MsgUpdateEventStatusResponse)(nil), "ems.v1.MsgUpdateEventStatusResponse")
 }
 
 func init() { proto.RegisterFile("ems/v1/tx.proto", fileDescriptor_a4be48c63a55e56f) }
 
 var fileDescriptor_a4be48c63a55e56f = []byte{
-	// 491 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x93, 0x31, 0x6f, 0xd3, 0x40,
-	0x14, 0xc7, 0x73, 0x49, 0x88, 0x9a, 0x03, 0xa5, 0xd5, 0x29, 0x22, 0xae, 0x85, 0xdc, 0x28, 0x53,
-	0x54, 0x81, 0x4d, 0x0b, 0x62, 0x60, 0x23, 0x08, 0x04, 0x48, 0xa9, 0x90, 0x29, 0x0b, 0x0b, 0x72,
-	0xed, 0xe3, 0x72, 0xa2, 0xe7, 0xb3, 0xee, 0x5d, 0xa2, 0x96, 0x09, 0x75, 0x61, 0xe5, 0xa3, 0x74,
-	0x60, 0xe0, 0x23, 0x74, 0xac, 0x98, 0x98, 0x10, 0x4a, 0x86, 0x7e, 0x09, 0x06, 0x14, 0x9f, 0xed,
-	0x34, 0x6e, 0x0b, 0x43, 0xb7, 0x77, 0xf7, 0x7f, 0xff, 0xbf, 0x7e, 0xcf, 0xcf, 0x87, 0x57, 0xa9,
-	0x00, 0x6f, 0xb2, 0xe5, 0xe9, 0x03, 0x37, 0x51, 0x52, 0x4b, 0xd2, 0xa0, 0x02, 0xdc, 0xc9, 0x96,
-	0xdd, 0x09, 0x25, 0x08, 0x09, 0x9e, 0x00, 0x36, 0xd7, 0x05, 0x30, 0xd3, 0x60, 0xb7, 0x33, 0x07,
-	0xa3, 0x31, 0x05, 0x0e, 0xf9, 0x2d, 0x93, 0x4c, 0xa6, 0xa5, 0x37, 0xaf, 0xb2, 0xdb, 0x75, 0x13,
-	0xf2, 0xde, 0x08, 0xe6, 0x60, 0xa4, 0xde, 0x17, 0x84, 0x57, 0x87, 0xc0, 0xde, 0x26, 0x51, 0xa0,
-	0xe9, 0xeb, 0x40, 0x05, 0x02, 0xc8, 0x23, 0xdc, 0x0c, 0xc6, 0x7a, 0x24, 0x15, 0xd7, 0x87, 0x16,
-	0xea, 0xa2, 0x7e, 0x73, 0x60, 0xfd, 0xf8, 0x76, 0xaf, 0x9d, 0x19, 0x9f, 0x44, 0x91, 0xa2, 0x00,
-	0x6f, 0xb4, 0xe2, 0x31, 0xf3, 0x17, 0xad, 0xe4, 0x2e, 0x6e, 0x24, 0x69, 0x82, 0x55, 0xed, 0xa2,
-	0xfe, 0xcd, 0xed, 0x96, 0x6b, 0x86, 0x70, 0x4d, 0xee, 0xa0, 0x7e, 0xf2, 0x6b, 0xa3, 0xe2, 0x67,
-	0x3d, 0x8f, 0x5b, 0x47, 0x67, 0xc7, 0x9b, 0x0b, 0x77, 0x6f, 0x1d, 0x77, 0x4a, 0x20, 0x3e, 0x85,
-	0x44, 0xc6, 0x40, 0x7b, 0x47, 0x08, 0xb7, 0x87, 0xc0, 0x9e, 0x2a, 0x1a, 0x68, 0xfa, 0x6c, 0x42,
-	0x63, 0xbd, 0x20, 0x95, 0x8a, 0x05, 0x31, 0xff, 0x44, 0xd5, 0xff, 0x49, 0x8b, 0x56, 0x42, 0x70,
-	0x3d, 0x0e, 0x04, 0x4d, 0x39, 0x9b, 0x7e, 0x5a, 0x93, 0x16, 0xae, 0xf2, 0xc8, 0xaa, 0xa5, 0x37,
-	0x55, 0x1e, 0x65, 0x7c, 0x85, 0xa7, 0x67, 0xe1, 0xdb, 0xcb, 0x0c, 0x05, 0xde, 0x77, 0x94, 0x4a,
-	0x2f, 0x01, 0xc6, 0x46, 0xd9, 0x79, 0xbe, 0x7b, 0x4d, 0xc0, 0x87, 0x78, 0x45, 0xd1, 0x90, 0xf2,
-	0x09, 0x55, 0x06, 0xf2, 0x1f, 0xb6, 0xa2, 0xb3, 0x3c, 0x02, 0x59, 0xc3, 0xb5, 0xf8, 0x83, 0xb6,
-	0xea, 0x5d, 0xd4, 0x5f, 0xf1, 0xe7, 0xe5, 0x85, 0xa1, 0x6c, 0x6c, 0x95, 0xc9, 0xf3, 0xb1, 0xb6,
-	0xff, 0x20, 0x5c, 0x1b, 0x02, 0x23, 0x2f, 0xf0, 0xad, 0xa5, 0xdf, 0xa3, 0x93, 0xaf, 0xb5, 0xb4,
-	0x2e, 0x7b, 0xe3, 0x0a, 0x21, 0x4f, 0x24, 0x3b, 0xb8, 0xb5, 0xfc, 0x09, 0xc9, 0x9d, 0x73, 0x96,
-	0x0b, 0xeb, 0xb5, 0x9d, 0xcb, 0xd5, 0x22, 0x6f, 0x17, 0xaf, 0x95, 0xe9, 0xc9, 0x79, 0xcf, 0x25,
-	0x1b, 0xb1, 0xbb, 0x57, 0xe9, 0x79, 0xaa, 0x7d, 0xe3, 0xf3, 0xd9, 0xf1, 0x26, 0x1a, 0xbc, 0x3a,
-	0x99, 0x3a, 0xe8, 0x74, 0xea, 0xa0, 0xdf, 0x53, 0x07, 0x7d, 0x9d, 0x39, 0x95, 0xd3, 0x99, 0x53,
-	0xf9, 0x39, 0x73, 0x2a, 0xef, 0xee, 0x33, 0xae, 0x47, 0xe3, 0x3d, 0x37, 0x94, 0xc2, 0x53, 0x72,
-	0x7f, 0x3f, 0x1c, 0x05, 0x3c, 0x06, 0x2f, 0x12, 0xa3, 0x20, 0xfc, 0x28, 0x24, 0xa4, 0x67, 0xef,
-	0xc0, 0x9b, 0xbf, 0x50, 0x7d, 0x98, 0x50, 0xd8, 0x6b, 0xa4, 0x8f, 0xed, 0xc1, 0xdf, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x21, 0x59, 0xa9, 0xef, 0xe7, 0x03, 0x00, 0x00,
+	// 677 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x55, 0x41, 0x4f, 0x13, 0x41,
+	0x14, 0xee, 0xb6, 0x50, 0xdb, 0x01, 0x0a, 0x99, 0x10, 0x58, 0x56, 0xb2, 0xd4, 0x46, 0x93, 0x86,
+	0x68, 0x17, 0xd0, 0x78, 0xe0, 0x06, 0x46, 0xa3, 0x26, 0x45, 0xb2, 0xe0, 0xc5, 0x0b, 0x0e, 0xbb,
+	0xc3, 0x76, 0x03, 0xb3, 0xb3, 0xd9, 0x37, 0x6d, 0x8a, 0x17, 0x8d, 0x17, 0x13, 0xe3, 0xc1, 0x5f,
+	0xe1, 0x99, 0x83, 0x3f, 0xc0, 0x23, 0x47, 0xe2, 0xc9, 0x93, 0x31, 0x70, 0xe0, 0x6f, 0x98, 0xce,
+	0x6c, 0x07, 0xda, 0x52, 0x34, 0xe1, 0x36, 0xf3, 0xbe, 0xef, 0xbd, 0xf9, 0xde, 0x37, 0x6f, 0x76,
+	0xd1, 0x24, 0x65, 0xe0, 0xb4, 0x96, 0x1d, 0xd1, 0xae, 0xc5, 0x09, 0x17, 0x1c, 0xe7, 0x29, 0x83,
+	0x5a, 0x6b, 0xd9, 0x9a, 0xf5, 0x38, 0x30, 0x0e, 0x0e, 0x83, 0xa0, 0x83, 0x33, 0x08, 0x14, 0xc1,
+	0x9a, 0x4e, 0x33, 0x02, 0x1a, 0x51, 0x08, 0xa1, 0x1b, 0x0d, 0x78, 0xc0, 0xe5, 0xd2, 0xe9, 0xac,
+	0xd2, 0xe8, 0x9c, 0x2a, 0xb2, 0xa3, 0x00, 0xb5, 0x51, 0x50, 0xe5, 0x93, 0x81, 0x26, 0xeb, 0x10,
+	0xbc, 0x8e, 0x7d, 0x22, 0xe8, 0x26, 0x49, 0x08, 0x03, 0xfc, 0x18, 0x15, 0x49, 0x53, 0x34, 0x78,
+	0x12, 0x8a, 0x43, 0xd3, 0x28, 0x1b, 0xd5, 0xe2, 0xba, 0xf9, 0xf3, 0xfb, 0x83, 0xe9, 0x34, 0x71,
+	0xcd, 0xf7, 0x13, 0x0a, 0xb0, 0x25, 0x92, 0x30, 0x0a, 0xdc, 0x0b, 0x2a, 0xbe, 0x8f, 0xf2, 0xb1,
+	0xac, 0x60, 0x66, 0xcb, 0x46, 0x75, 0x6c, 0xa5, 0x54, 0x53, 0x4d, 0xd4, 0x54, 0xdd, 0xf5, 0x91,
+	0xe3, 0xdf, 0x0b, 0x19, 0x37, 0xe5, 0xac, 0x96, 0x3e, 0x9e, 0x1f, 0x2d, 0x5e, 0x64, 0x57, 0xe6,
+	0xd0, 0x6c, 0x9f, 0x10, 0x97, 0x42, 0xcc, 0x23, 0xa0, 0x95, 0xcf, 0x59, 0x34, 0x5d, 0x87, 0xe0,
+	0x49, 0x42, 0x89, 0xa0, 0x4f, 0x5b, 0x34, 0x12, 0x17, 0x4a, 0x79, 0x12, 0x90, 0x28, 0x7c, 0x47,
+	0x93, 0x7f, 0x2b, 0xd5, 0x54, 0x8c, 0xd1, 0x48, 0x44, 0x18, 0x95, 0x3a, 0x8b, 0xae, 0x5c, 0xe3,
+	0x12, 0xca, 0x86, 0xbe, 0x99, 0x93, 0x91, 0x6c, 0xe8, 0xe3, 0xdb, 0xa8, 0x18, 0xed, 0x89, 0x9d,
+	0x38, 0x09, 0x3d, 0x6a, 0x8e, 0x94, 0x8d, 0xea, 0xa8, 0x5b, 0x88, 0xf6, 0xc4, 0x66, 0x67, 0x8f,
+	0x17, 0xd0, 0x98, 0xe0, 0xfb, 0x34, 0x4a, 0xe1, 0x51, 0x09, 0x23, 0x19, 0x52, 0x84, 0x3b, 0x68,
+	0x5c, 0x11, 0xa0, 0x19, 0xc7, 0x07, 0x87, 0x66, 0xbe, 0x6c, 0x54, 0x73, 0xae, 0x4a, 0xda, 0x92,
+	0x21, 0x7c, 0x0f, 0x95, 0x18, 0x69, 0xef, 0x68, 0x55, 0x60, 0xde, 0x92, 0x65, 0x26, 0x18, 0x69,
+	0xbf, 0xd2, 0xc1, 0xd4, 0x27, 0xcd, 0xaa, 0x98, 0x68, 0xa6, 0xd7, 0x0b, 0x6d, 0xd3, 0x7b, 0x89,
+	0xbc, 0x00, 0x68, 0x2a, 0x60, 0xe3, 0xd9, 0x76, 0xea, 0xd3, 0x23, 0x54, 0x48, 0xa8, 0x47, 0xc3,
+	0x16, 0x4d, 0x54, 0xcf, 0xd7, 0xd8, 0xa4, 0x99, 0x03, 0x8e, 0x4c, 0xa1, 0x5c, 0xb4, 0x27, 0xa4,
+	0x17, 0x05, 0xb7, 0xb3, 0x5c, 0x9d, 0xe8, 0x68, 0xd3, 0x09, 0x15, 0x0b, 0x99, 0xfd, 0x02, 0xb4,
+	0xb8, 0x6f, 0x06, 0xb2, 0xea, 0x10, 0xac, 0xf9, 0xbe, 0x84, 0x74, 0x83, 0x37, 0xbc, 0xc9, 0x25,
+	0x94, 0x67, 0x94, 0xed, 0xfe, 0x47, 0x5f, 0x29, 0xaf, 0xbf, 0xab, 0x01, 0x7f, 0x6d, 0x34, 0x7f,
+	0x95, 0x4e, 0xdd, 0xc8, 0x17, 0xd5, 0x88, 0x1a, 0x54, 0xc9, 0xd9, 0x12, 0x44, 0x34, 0xe1, 0x86,
+	0x8d, 0x28, 0x59, 0x59, 0x6d, 0xf6, 0x0c, 0xca, 0x13, 0x4f, 0x84, 0x2d, 0x2a, 0xa5, 0x16, 0xdc,
+	0x74, 0x37, 0x44, 0xee, 0x80, 0x9a, 0xae, 0xdc, 0x95, 0x1f, 0x39, 0x94, 0xab, 0x43, 0x80, 0x9f,
+	0xa3, 0xf1, 0x9e, 0x47, 0x3e, 0xdb, 0x7d, 0x9c, 0x7d, 0x8f, 0xce, 0x5a, 0x18, 0x02, 0x74, 0x2b,
+	0xe2, 0x0d, 0x54, 0xea, 0x1d, 0x40, 0x3c, 0x7f, 0x29, 0x65, 0xe0, 0x91, 0x5a, 0xf6, 0xd5, 0xa8,
+	0xae, 0xb7, 0x8d, 0xa6, 0xfa, 0xa7, 0x06, 0x5f, 0xce, 0xb9, 0x62, 0xa0, 0xad, 0xf2, 0x30, 0x5c,
+	0x57, 0x7d, 0x2b, 0x3f, 0x19, 0x03, 0xd7, 0x88, 0x2b, 0x97, 0x32, 0x87, 0x0c, 0xa3, 0x75, 0xf7,
+	0x3a, 0x4e, 0xdf, 0x09, 0x03, 0xce, 0xf7, 0x9c, 0x30, 0x64, 0x4a, 0x7a, 0x4e, 0x18, 0x7a, 0x77,
+	0xd6, 0xe8, 0x87, 0xf3, 0xa3, 0x45, 0x63, 0xfd, 0xe5, 0xf1, 0xa9, 0x6d, 0x9c, 0x9c, 0xda, 0xc6,
+	0x9f, 0x53, 0xdb, 0xf8, 0x7a, 0x66, 0x67, 0x4e, 0xce, 0xec, 0xcc, 0xaf, 0x33, 0x3b, 0xf3, 0x66,
+	0x29, 0x08, 0x45, 0xa3, 0xb9, 0x5b, 0xf3, 0x38, 0x73, 0x12, 0x7e, 0x70, 0xe0, 0x35, 0x48, 0x18,
+	0x81, 0xe3, 0xb3, 0x06, 0xf1, 0xf6, 0x19, 0x07, 0xb9, 0x77, 0xda, 0x4e, 0xe7, 0x5f, 0x21, 0x0e,
+	0x63, 0x0a, 0xbb, 0x79, 0xf9, 0xd9, 0x7f, 0xf8, 0x37, 0x00, 0x00, 0xff, 0xff, 0xca, 0x1d, 0x14,
+	0x5e, 0x71, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -393,6 +625,8 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(ctx context.Context, in *MsgCreateEventParams, opts ...grpc.CallOption) (*MsgCreateEventResponse, error)
 	MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTParams, opts ...grpc.CallOption) (*MsgIssueEventNFTResponse, error)
+	MsgAddEventOrganizer(ctx context.Context, in *MsgAddEventOrganizerParams, opts ...grpc.CallOption) (*MsgAddEventOrganizerResponse, error)
+	MsgUpdateEventStatus(ctx context.Context, in *MsgUpdateEventStatusParams, opts ...grpc.CallOption) (*MsgUpdateEventStatusResponse, error)
 }
 
 type msgClient struct {
@@ -430,6 +664,24 @@ func (c *msgClient) MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTPa
 	return out, nil
 }
 
+func (c *msgClient) MsgAddEventOrganizer(ctx context.Context, in *MsgAddEventOrganizerParams, opts ...grpc.CallOption) (*MsgAddEventOrganizerResponse, error) {
+	out := new(MsgAddEventOrganizerResponse)
+	err := c.cc.Invoke(ctx, "/ems.v1.Msg/MsgAddEventOrganizer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) MsgUpdateEventStatus(ctx context.Context, in *MsgUpdateEventStatusParams, opts ...grpc.CallOption) (*MsgUpdateEventStatusResponse, error) {
+	out := new(MsgUpdateEventStatusResponse)
+	err := c.cc.Invoke(ctx, "/ems.v1.Msg/MsgUpdateEventStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a governance operation for updating the parameters.
@@ -438,6 +690,8 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(context.Context, *MsgCreateEventParams) (*MsgCreateEventResponse, error)
 	MsgIssueEventNFT(context.Context, *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error)
+	MsgAddEventOrganizer(context.Context, *MsgAddEventOrganizerParams) (*MsgAddEventOrganizerResponse, error)
+	MsgUpdateEventStatus(context.Context, *MsgUpdateEventStatusParams) (*MsgUpdateEventStatusResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -452,6 +706,12 @@ func (*UnimplementedMsgServer) MsgCreateEvent(ctx context.Context, req *MsgCreat
 }
 func (*UnimplementedMsgServer) MsgIssueEventNFT(ctx context.Context, req *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MsgIssueEventNFT not implemented")
+}
+func (*UnimplementedMsgServer) MsgAddEventOrganizer(ctx context.Context, req *MsgAddEventOrganizerParams) (*MsgAddEventOrganizerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgAddEventOrganizer not implemented")
+}
+func (*UnimplementedMsgServer) MsgUpdateEventStatus(ctx context.Context, req *MsgUpdateEventStatusParams) (*MsgUpdateEventStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgUpdateEventStatus not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -512,6 +772,42 @@ func _Msg_MsgIssueEventNFT_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_MsgAddEventOrganizer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddEventOrganizerParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MsgAddEventOrganizer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ems.v1.Msg/MsgAddEventOrganizer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MsgAddEventOrganizer(ctx, req.(*MsgAddEventOrganizerParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_MsgUpdateEventStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateEventStatusParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MsgUpdateEventStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ems.v1.Msg/MsgUpdateEventStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MsgUpdateEventStatus(ctx, req.(*MsgUpdateEventStatusParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "ems.v1.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -527,6 +823,14 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MsgIssueEventNFT",
 			Handler:    _Msg_MsgIssueEventNFT_Handler,
+		},
+		{
+			MethodName: "MsgAddEventOrganizer",
+			Handler:    _Msg_MsgAddEventOrganizer_Handler,
+		},
+		{
+			MethodName: "MsgUpdateEventStatus",
+			Handler:    _Msg_MsgUpdateEventStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -616,6 +920,26 @@ func (m *MsgCreateEventParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.MaxOrganizers != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.MaxOrganizers))
+		i--
+		dAtA[i] = 0x38
+	}
+	if m.TokenSupply != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TokenSupply))
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.TokenPrice != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TokenPrice))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.NftPrice != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.NftPrice))
+		i--
+		dAtA[i] = 0x20
+	}
 	if len(m.Id) > 0 {
 		i -= len(m.Id)
 		copy(dAtA[i:], m.Id)
@@ -707,13 +1031,6 @@ func (m *MsgIssueEventNFTParams) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Organizer) > 0 {
-		i -= len(m.Organizer)
-		copy(dAtA[i:], m.Organizer)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Organizer)))
-		i--
-		dAtA[i] = 0xa
-	}
 	return len(dAtA) - i, nil
 }
 
@@ -733,6 +1050,143 @@ func (m *MsgIssueEventNFTResponse) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *MsgIssueEventNFTResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgAddEventOrganizerParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgAddEventOrganizerParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgAddEventOrganizerParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Id) > 0 {
+		i -= len(m.Id)
+		copy(dAtA[i:], m.Id)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Id)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Member) > 0 {
+		i -= len(m.Member)
+		copy(dAtA[i:], m.Member)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Member)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Organizer) > 0 {
+		i -= len(m.Organizer)
+		copy(dAtA[i:], m.Organizer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Organizer)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgAddEventOrganizerResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgAddEventOrganizerResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgAddEventOrganizerResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateEventStatusParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateEventStatusParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateEventStatusParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Active {
+		i--
+		if m.Active {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Id) > 0 {
+		i -= len(m.Id)
+		copy(dAtA[i:], m.Id)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Id)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Organizer) > 0 {
+		i -= len(m.Organizer)
+		copy(dAtA[i:], m.Organizer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Organizer)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateEventStatusResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateEventStatusResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateEventStatusResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -793,6 +1247,18 @@ func (m *MsgCreateEventParams) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
+	if m.NftPrice != 0 {
+		n += 1 + sovTx(uint64(m.NftPrice))
+	}
+	if m.TokenPrice != 0 {
+		n += 1 + sovTx(uint64(m.TokenPrice))
+	}
+	if m.TokenSupply != 0 {
+		n += 1 + sovTx(uint64(m.TokenSupply))
+	}
+	if m.MaxOrganizers != 0 {
+		n += 1 + sovTx(uint64(m.MaxOrganizers))
+	}
 	return n
 }
 
@@ -811,10 +1277,6 @@ func (m *MsgIssueEventNFTParams) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Organizer)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
 	l = len(m.Receiver)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
@@ -830,6 +1292,65 @@ func (m *MsgIssueEventNFTParams) Size() (n int) {
 }
 
 func (m *MsgIssueEventNFTResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgAddEventOrganizerParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Organizer)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Member)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgAddEventOrganizerResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgUpdateEventStatusParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Organizer)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Active {
+		n += 2
+	}
+	return n
+}
+
+func (m *MsgUpdateEventStatusResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1134,6 +1655,82 @@ func (m *MsgCreateEventParams) Unmarshal(dAtA []byte) error {
 			}
 			m.Id = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NftPrice", wireType)
+			}
+			m.NftPrice = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NftPrice |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TokenPrice", wireType)
+			}
+			m.TokenPrice = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TokenPrice |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TokenSupply", wireType)
+			}
+			m.TokenSupply = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TokenSupply |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxOrganizers", wireType)
+			}
+			m.MaxOrganizers = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MaxOrganizers |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -1234,38 +1831,6 @@ func (m *MsgIssueEventNFTParams) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: MsgIssueEventNFTParams: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Organizer", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Organizer = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Receiver", wireType)
@@ -1398,6 +1963,386 @@ func (m *MsgIssueEventNFTResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgIssueEventNFTResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgAddEventOrganizerParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgAddEventOrganizerParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgAddEventOrganizerParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Organizer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Organizer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Member", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Member = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgAddEventOrganizerResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgAddEventOrganizerResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgAddEventOrganizerResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateEventStatusParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateEventStatusParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateEventStatusParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Organizer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Organizer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Active", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Active = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateEventStatusResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateEventStatusResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateEventStatusResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

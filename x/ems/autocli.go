@@ -31,21 +31,33 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
                     RpcMethod: "MsgCreateEvent",
-                    Use:       "create <id> <name>",
+                    Use:       "create <id> <name> [nft_price] [token_price] [token_supply] [max_organizers]",
                     Short:     "Create an event",
                     PositionalArgs: []*autocliv1.PositionalArgDescriptor{
                         {ProtoField: "id"},
 						{ProtoField: "name"},
+						{ProtoField: "nft_price"},
+						{ProtoField: "token_price"},
+						{ProtoField: "token_supply"},
+						{ProtoField: "max_organizers"},
                     },
                 },
 				{
                     RpcMethod: "MsgIssueEventNFT",
-                    Use:       "issue <id> <receiver> <nft>",
+                    Use:       "issue <id> <nft>",
                     Short:     "Create an event",
                     PositionalArgs: []*autocliv1.PositionalArgDescriptor{
                         {ProtoField: "id"},
-						{ProtoField: "receiver"},
 						{ProtoField: "nft"},
+                    },
+                },
+				{
+                    RpcMethod: "MsgUpdateEventStatus",
+                    Use:       "status <id> <active>",
+                    Short:     "Create an event",
+                    PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+                        {ProtoField: "id"},
+						{ProtoField: "active"},
                     },
                 },
 				{

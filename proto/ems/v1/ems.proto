@@ -10,4 +10,12 @@ message Event {
     string name = 2;
 
     repeated string organizers = 3;
+    
+    bool active = 4;
+
+    int32 nft_price = 5;
+
+    int32 token_price = 6;
+
+    int32 max_organizers = 7;
 }

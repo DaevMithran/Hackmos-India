@@ -20,6 +20,10 @@ service Msg {
   rpc MsgCreateEvent(MsgCreateEventParams) returns (MsgCreateEventResponse);
 
   rpc MsgIssueEventNFT(MsgIssueEventNFTParams) returns (MsgIssueEventNFTResponse);
+
+  rpc MsgAddEventOrganizer (MsgAddEventOrganizerParams) returns (MsgAddEventOrganizerResponse);
+
+  rpc MsgUpdateEventStatus (MsgUpdateEventStatusParams) returns (MsgUpdateEventStatusResponse);
 }
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
@@ -51,14 +55,20 @@ message MsgCreateEventParams {
     string name = 2;
 
     string id = 3;
+
+    int32 nft_price = 4;
+
+    int32 token_price = 5;
+
+    int64 token_supply = 6;
+
+    int32 max_organizers = 7;
 }
   
 message MsgCreateEventResponse {}
 
 message MsgIssueEventNFTParams {
-    option (cosmos.msg.v1.signer) = "organizer";
-
-    string organizer = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+    option (cosmos.msg.v1.signer) = "receiver";
 
     string receiver = 2 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
@@ -68,3 +78,27 @@ message MsgIssueEventNFTParams {
 }
   
 message MsgIssueEventNFTResponse {}
+
+message MsgAddEventOrganizerParams {
+    option (cosmos.msg.v1.signer) = "organizer";
+
+    string organizer = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+    string member = 2 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+    string id = 3;
+}
+  
+message MsgAddEventOrganizerResponse {}
+
+message MsgUpdateEventStatusParams {
+    option (cosmos.msg.v1.signer) = "organizer";
+
+    string organizer = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+    string id = 2;
+
+    bool active = 3;
+}
+  
+message MsgUpdateEventStatusResponse {}

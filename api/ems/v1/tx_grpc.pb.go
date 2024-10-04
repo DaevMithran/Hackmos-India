@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName     = "/ems.v1.Msg/UpdateParams"
-	Msg_MsgCreateEvent_FullMethodName   = "/ems.v1.Msg/MsgCreateEvent"
-	Msg_MsgIssueEventNFT_FullMethodName = "/ems.v1.Msg/MsgIssueEventNFT"
+	Msg_UpdateParams_FullMethodName         = "/ems.v1.Msg/UpdateParams"
+	Msg_MsgCreateEvent_FullMethodName       = "/ems.v1.Msg/MsgCreateEvent"
+	Msg_MsgIssueEventNFT_FullMethodName     = "/ems.v1.Msg/MsgIssueEventNFT"
+	Msg_MsgAddEventOrganizer_FullMethodName = "/ems.v1.Msg/MsgAddEventOrganizer"
+	Msg_MsgUpdateEventStatus_FullMethodName = "/ems.v1.Msg/MsgUpdateEventStatus"
 )
 
 // MsgClient is the client API for Msg service.
@@ -34,6 +36,8 @@ type MsgClient interface {
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(ctx context.Context, in *MsgCreateEventParams, opts ...grpc.CallOption) (*MsgCreateEventResponse, error)
 	MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTParams, opts ...grpc.CallOption) (*MsgIssueEventNFTResponse, error)
+	MsgAddEventOrganizer(ctx context.Context, in *MsgAddEventOrganizerParams, opts ...grpc.CallOption) (*MsgAddEventOrganizerResponse, error)
+	MsgUpdateEventStatus(ctx context.Context, in *MsgUpdateEventStatusParams, opts ...grpc.CallOption) (*MsgUpdateEventStatusResponse, error)
 }
 
 type msgClient struct {
@@ -71,6 +75,24 @@ func (c *msgClient) MsgIssueEventNFT(ctx context.Context, in *MsgIssueEventNFTPa
 	return out, nil
 }
 
+func (c *msgClient) MsgAddEventOrganizer(ctx context.Context, in *MsgAddEventOrganizerParams, opts ...grpc.CallOption) (*MsgAddEventOrganizerResponse, error) {
+	out := new(MsgAddEventOrganizerResponse)
+	err := c.cc.Invoke(ctx, Msg_MsgAddEventOrganizer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) MsgUpdateEventStatus(ctx context.Context, in *MsgUpdateEventStatusParams, opts ...grpc.CallOption) (*MsgUpdateEventStatusResponse, error) {
+	out := new(MsgUpdateEventStatusResponse)
+	err := c.cc.Invoke(ctx, Msg_MsgUpdateEventStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -81,6 +103,8 @@ type MsgServer interface {
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	MsgCreateEvent(context.Context, *MsgCreateEventParams) (*MsgCreateEventResponse, error)
 	MsgIssueEventNFT(context.Context, *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error)
+	MsgAddEventOrganizer(context.Context, *MsgAddEventOrganizerParams) (*MsgAddEventOrganizerResponse, error)
+	MsgUpdateEventStatus(context.Context, *MsgUpdateEventStatusParams) (*MsgUpdateEventStatusResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -96,6 +120,12 @@ func (UnimplementedMsgServer) MsgCreateEvent(context.Context, *MsgCreateEventPar
 }
 func (UnimplementedMsgServer) MsgIssueEventNFT(context.Context, *MsgIssueEventNFTParams) (*MsgIssueEventNFTResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MsgIssueEventNFT not implemented")
+}
+func (UnimplementedMsgServer) MsgAddEventOrganizer(context.Context, *MsgAddEventOrganizerParams) (*MsgAddEventOrganizerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgAddEventOrganizer not implemented")
+}
+func (UnimplementedMsgServer) MsgUpdateEventStatus(context.Context, *MsgUpdateEventStatusParams) (*MsgUpdateEventStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgUpdateEventStatus not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -164,6 +194,42 @@ func _Msg_MsgIssueEventNFT_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_MsgAddEventOrganizer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddEventOrganizerParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MsgAddEventOrganizer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MsgAddEventOrganizer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MsgAddEventOrganizer(ctx, req.(*MsgAddEventOrganizerParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_MsgUpdateEventStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateEventStatusParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MsgUpdateEventStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MsgUpdateEventStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MsgUpdateEventStatus(ctx, req.(*MsgUpdateEventStatusParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +248,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MsgIssueEventNFT",
 			Handler:    _Msg_MsgIssueEventNFT_Handler,
+		},
+		{
+			MethodName: "MsgAddEventOrganizer",
+			Handler:    _Msg_MsgAddEventOrganizer_Handler,
+		},
+		{
+			MethodName: "MsgUpdateEventStatus",
+			Handler:    _Msg_MsgUpdateEventStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
